@@ -1,0 +1,25 @@
+{
+  "sound_definitions": {
+    "h2v.player.sans.trial": {
+      "category": "music",
+      "stream": true,
+      "volume": 1.0,
+      "load_on_low_memory": true,
+      "sounds": [
+        "player_trial_time"
+      ]
+    },
+    "blood.splat": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/explode1"
+      ]
+    },
+    "blood.gibs": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/gibs"
+      ]
+    }
+  }
+}

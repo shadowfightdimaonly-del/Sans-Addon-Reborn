@@ -1,0 +1,30 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "Sans Addon:Reborn Resource Pack",
+        "name": "Sans Addon:Reborn",
+        "uuid": "c6170c95-28e8-9ade-1969-6cd41983fac7",
+        "version": [
+            1,
+            21,
+            5
+        ],
+        "min_engine_version": [
+            1,
+            20,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "description": "By Pipis-AFC",
+            "type": "resources",
+            "uuid": "f6138c94-27e8-8ade-9783-6cd72660fac7",
+            "version": [
+                1,
+                21,
+                5
+            ]
+        }
+    ]
+}

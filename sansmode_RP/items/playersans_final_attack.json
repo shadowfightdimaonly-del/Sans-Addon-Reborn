@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "playersans:final_attack",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:use_animation": "bow",
+      "minecraft:icon": "playersans_final_attack",
+      "minecraft:hover_text_color": "light_purple",
+      "minecraft:render_offsets": "psansbone"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+ {
+	"format_version": "1.10.0",
+    "geometry.psansfire":  {
+      "texturewidth":  6400,
+      "textureheight":  6400,
+      "bones":  [
+        {
+          "name":  "nbody",
+          "pivot":  [  0.0,  0,  0.0  ],
+          "cubes":  [
+            {
+              "origin":  [  -1,  -1,  -961  ],
+              "size":  [  2,  2,  960  ],
+              "uv":  [  0,  0  ]
+            }
+          ]
+        }
+      ]
+    }
+ }

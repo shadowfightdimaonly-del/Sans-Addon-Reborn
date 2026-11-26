@@ -1,0 +1,88 @@
+{
+    "format_version": "1.8.0",
+
+  "minecraft:entity": {
+    "description": {
+      "identifier": "horrorsans:pbone",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+"runtime_identifier":"minecraft:snowball",
+"scripts":{"animate":[
+"pbone"
+]},"animations":{
+"pbone":"controller.animation.pbone"
+}
+    },
+    "components": {
+
+          "minecraft:health": {
+        "value": 20,
+        "min":20,
+        "max": 20
+      },
+        "minecraft:scale": {
+          "value": 2.56
+        },
+
+        "minecraft:explode": {
+     "fuseLength": 1.5,
+     "fuseLit": true,
+     "power": 0,
+     "causesFire": true,
+     "fireAffectedByGriefing": true,
+     "destroyAffectedByGriefing": true
+    },
+       "minecraft:damage_sensor": [
+        {
+          "cause": "all",
+          "deals_damage": false
+        }
+      ],
+      "minecraft:collision_box": {
+        "width": 0.0,
+        "height": 0.0
+      },
+      "minecraft:projectile": {
+        "particle": "explode",
+        "onHit": {
+        	"stick_in_ground": {
+						"shake_time" : 0
+					},
+
+           "impact_damage": {
+            "damage": 9,
+        	"destroyonhit": false,
+            "knockback": true
+          }
+        },
+/*          "multipletargets":true,
+       */
+        "power": 2.3,
+         "catchFire": false,
+         "offset": [0, 0.45, 0],
+        "gravity": 0.00,
+        "inertia": 1,
+    "semirandomdiffdamage": true,
+    "uncertaintyBase": 10.0,
+       "anchor": 1.82,
+    "reflectOnHurt": true
+      }
+    },
+    "event":{
+          "m": {
+       "randomize": [
+             {
+            "weight": 15
+          },
+                       {
+            "weight": 1,
+            "add":{"component_groups":["m"]}
+          }
+
+        ]
+      }
+
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "killersans:killer_knock",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:use_animation": "bow",
+      "minecraft:icon": "killersans_killer_knock",
+      "minecraft:hover_text_color": "light_purple",
+      "minecraft:render_offsets": "psansbone"
+    }
+  }
+}

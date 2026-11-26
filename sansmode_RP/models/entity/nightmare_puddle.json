@@ -1,0 +1,51 @@
+{
+ "format_version": "1.10.0",
+ "geometry.nightmare_puddle": {
+  "texturewidth": 64,
+  "textureheight": 64,
+  "visible_bounds_width": 4,
+  "visible_bounds_height": 1,
+  "visible_bounds_offset": [
+   0,
+   0.5,
+   0
+  ],
+  "bones": [
+   {
+    "name": "root",
+    "pivot": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "body",
+    "parent": "root",
+    "pivot": [
+     0,
+     0,
+     0
+    ],
+    "cubes": [
+     {
+      "origin": [
+       -7,
+       0,
+       -7
+      ],
+      "size": [
+       14,
+       1,
+       14
+      ],
+      "uv": [
+       0,
+       0
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,32 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "dustsans:bone_spike",
+      "materials": {
+        "default": "entity_alphatest",
+        "invisible": "entity_alphatest"
+      },
+      "textures": {
+        "default": "dbone_spike",
+        "red": "dbone_spike_red",
+        "blue": "dbone_spike_blue"
+      },
+      "geometry": {
+        "default": "geometry.sans_bone_spike"
+      },
+      "render_controllers": [
+        "controller.render.dust_bone"
+      ],
+      "enable_attachables": false,
+      "animations": {
+        "emerge": "animation.bone_spike.emerge"
+      },
+      "scripts": {
+        "animate": [
+          "emerge"
+        ]
+      }
+    }
+  }
+}

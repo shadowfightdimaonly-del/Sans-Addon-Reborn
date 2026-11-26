@@ -1,0 +1,255 @@
+{
+ "format_version": "1.10.0",
+ "animation_controllers": {
+  "controller.animation.sans_hand": {
+   "initial_state": "idle",
+   "states": {
+    "hold_fwd": {
+     "animations": [
+      "sans_fwd_hold",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.18,
+     "transitions": [
+      {
+       "cast_fwd": "!query.is_using_item&&(query.get_equipped_item_name=='bone0'||query.get_equipped_item_name=='strings'||query.get_equipped_item_name=='bones'||query.get_equipped_item_name=='teleport'||query.get_equipped_item_name=='control'||query.get_equipped_item_name=='dbone'||query.get_equipped_item_name=='dcontrol'||query.get_equipped_item_name=='pbones'||query.get_equipped_item_name=='phead'||query.get_equipped_item_name=='prow'||query.get_equipped_item_name=='pscarf'||query.get_equipped_item_name=='bone'||query.get_equipped_item_name=='consume'||query.get_equipped_item_name=='killer_bone'||query.get_equipped_item_name=='killer_fan'||query.get_equipped_item_name=='killer_knock'||query.get_equipped_item_name=='nightmare_tent'||query.get_equipped_item_name=='nightmare_strike'||query.get_equipped_item_name=='nightmare_grab'||query.get_equipped_item_name=='nightmare_absorb'||query.get_equipped_item_name=='nightmare_puddle')"
+      },
+      {
+       "idle": "!(query.get_equipped_item_name=='bone0'||query.get_equipped_item_name=='strings'||query.get_equipped_item_name=='bones'||query.get_equipped_item_name=='teleport'||query.get_equipped_item_name=='control'||query.get_equipped_item_name=='dbone'||query.get_equipped_item_name=='dcontrol'||query.get_equipped_item_name=='pbones'||query.get_equipped_item_name=='phead'||query.get_equipped_item_name=='prow'||query.get_equipped_item_name=='pscarf'||query.get_equipped_item_name=='bone'||query.get_equipped_item_name=='consume'||query.get_equipped_item_name=='killer_bone'||query.get_equipped_item_name=='killer_fan'||query.get_equipped_item_name=='killer_knock'||query.get_equipped_item_name=='nightmare_tent'||query.get_equipped_item_name=='nightmare_strike'||query.get_equipped_item_name=='nightmare_grab'||query.get_equipped_item_name=='nightmare_absorb'||query.get_equipped_item_name=='nightmare_puddle')"
+      }
+     ]
+    },
+    "cast_fwd": {
+     "animations": [
+      "sans_fwd_cast",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.06,
+     "transitions": [
+      {
+       "idle": "query.all_animations_finished"
+      }
+     ]
+    },
+    "hold_up": {
+     "animations": [
+      "sans_up_hold",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.18,
+     "transitions": [
+      {
+       "cast_up": "!query.is_using_item&&(query.get_equipped_item_name=='bone_spikes'||query.get_equipped_item_name=='bone_wall'||query.get_equipped_item_name=='telekinesis'||query.get_equipped_item_name=='dspikes'||query.get_equipped_item_name=='dwall'||query.get_equipped_item_name=='dtelekinesis'||query.get_equipped_item_name=='dunder'||query.get_equipped_item_name=='dpapyrus'||query.get_equipped_item_name=='spikes'||query.get_equipped_item_name=='bonespikes'||query.get_equipped_item_name=='killer_storm')"
+      },
+      {
+       "idle": "!(query.get_equipped_item_name=='bone_spikes'||query.get_equipped_item_name=='bone_wall'||query.get_equipped_item_name=='telekinesis'||query.get_equipped_item_name=='dspikes'||query.get_equipped_item_name=='dwall'||query.get_equipped_item_name=='dtelekinesis'||query.get_equipped_item_name=='dunder'||query.get_equipped_item_name=='dpapyrus'||query.get_equipped_item_name=='spikes'||query.get_equipped_item_name=='bonespikes'||query.get_equipped_item_name=='killer_storm')"
+      }
+     ]
+    },
+    "cast_up": {
+     "animations": [
+      "sans_up_cast",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.06,
+     "transitions": [
+      {
+       "idle": "query.all_animations_finished"
+      }
+     ]
+    },
+    "hold_side": {
+     "animations": [
+      "sans_side_hold",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.18,
+     "transitions": [
+      {
+       "cast_side": "!query.is_using_item&&(query.get_equipped_item_name=='gb'||query.get_equipped_item_name=='blasters'||query.get_equipped_item_name=='dgb'||query.get_equipped_item_name=='killer_gb'||query.get_equipped_item_name=='nightmare_blast')"
+      },
+      {
+       "idle": "!(query.get_equipped_item_name=='gb'||query.get_equipped_item_name=='blasters'||query.get_equipped_item_name=='dgb'||query.get_equipped_item_name=='killer_gb'||query.get_equipped_item_name=='nightmare_blast')"
+      }
+     ]
+    },
+    "cast_side": {
+     "animations": [
+      "sans_side_cast",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.06,
+     "transitions": [
+      {
+       "idle": "query.all_animations_finished"
+      }
+     ]
+    },
+    "hold_cir": {
+     "animations": [
+      "sans_cir_hold",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.18,
+     "transitions": [
+      {
+       "cast_cir": "!query.is_using_item&&(query.get_equipped_item_name=='gravity'||query.get_equipped_item_name=='dgravity'||query.get_equipped_item_name=='killer_circle')"
+      },
+      {
+       "idle": "!(query.get_equipped_item_name=='gravity'||query.get_equipped_item_name=='dgravity'||query.get_equipped_item_name=='killer_circle')"
+      }
+     ]
+    },
+    "cast_cir": {
+     "animations": [
+      "sans_cir_cast",
+      "sans_orb"
+     ],
+     "on_entry": [
+      "variable.sg=1;variable.sb=0;"
+     ],
+     "blend_transition": 0.06,
+     "transitions": [
+      {
+       "idle": "query.all_animations_finished"
+      }
+     ]
+    },
+    "bottle_up": {
+     "animations": [
+      "sans_bottle_up"
+     ],
+     "on_entry": [
+      "variable.sg=0;variable.sb=1;"
+     ],
+     "blend_transition": 0.05,
+     "transitions": [
+      {
+       "bottle_down": "!query.is_using_item&&(query.get_equipped_item_name=='ketchup_bottle')"
+      },
+      {
+       "idle": "!(query.get_equipped_item_name=='ketchup_bottle')"
+      }
+     ]
+    },
+    "bottle_down": {
+     "animations": [
+      "sans_bottle_down"
+     ],
+     "on_entry": [
+      "variable.sg=0;variable.sb=1;"
+     ],
+     "blend_transition": 0.05,
+     "transitions": [
+      {
+       "bottle_up": "query.is_using_item&&(query.get_equipped_item_name=='ketchup_bottle')"
+      },
+      {
+       "idle": "query.all_animations_finished"
+      }
+     ]
+    },
+    "weapon": {
+     "animations": [
+      "sans_weapon_r",
+      "sans_weapon_l"
+     ],
+     "on_entry": [
+      "variable.sg=0;variable.sb=0;variable.sw=1;"
+     ],
+     "on_exit": [
+      "variable.sw=0;"
+     ],
+     "blend_transition": 0.2,
+     "transitions": [
+      {
+       "idle": "!(query.get_equipped_item_name=='axe'||query.get_equipped_item_name=='cleaver'||query.get_equipped_item_name=='killer_knife')"
+      }
+     ]
+    },
+    "idle": {
+     "animations": [
+      {
+       "sans_pocket_r": "variable.attack_time<=0"
+      }
+     ],
+     "on_entry": [
+      "variable.sg=0;variable.sb=0;variable.sw=0;"
+     ],
+     "blend_transition": 0.18,
+     "transitions": [
+      {
+       "throw_cast": "query.variant>=300&&query.variant<1000&&query.get_equipped_item_name=='axe_throw'&&query.is_using_item"
+      },
+      {
+       "weapon": "query.variant>=300&&query.variant<1000&&(query.get_equipped_item_name=='axe'||query.get_equipped_item_name=='cleaver'||query.get_equipped_item_name=='killer_knife')"
+      },
+      {
+       "hold_fwd": "query.variant>=300&&query.variant<1000&&(query.get_equipped_item_name=='bone0'||query.get_equipped_item_name=='strings'||query.get_equipped_item_name=='bones'||query.get_equipped_item_name=='teleport'||query.get_equipped_item_name=='control'||query.get_equipped_item_name=='dbone'||query.get_equipped_item_name=='dcontrol'||query.get_equipped_item_name=='pbones'||query.get_equipped_item_name=='phead'||query.get_equipped_item_name=='prow'||query.get_equipped_item_name=='pscarf'||query.get_equipped_item_name=='bone'||query.get_equipped_item_name=='consume'||query.get_equipped_item_name=='killer_bone'||query.get_equipped_item_name=='killer_fan'||query.get_equipped_item_name=='killer_knock'||query.get_equipped_item_name=='nightmare_tent'||query.get_equipped_item_name=='nightmare_strike'||query.get_equipped_item_name=='nightmare_grab'||query.get_equipped_item_name=='nightmare_absorb'||query.get_equipped_item_name=='nightmare_puddle')&&query.is_using_item"
+      },
+      {
+       "hold_up": "query.variant>=300&&query.variant<1000&&(query.get_equipped_item_name=='bone_spikes'||query.get_equipped_item_name=='bone_wall'||query.get_equipped_item_name=='telekinesis'||query.get_equipped_item_name=='dspikes'||query.get_equipped_item_name=='dwall'||query.get_equipped_item_name=='dtelekinesis'||query.get_equipped_item_name=='dunder'||query.get_equipped_item_name=='dpapyrus'||query.get_equipped_item_name=='spikes'||query.get_equipped_item_name=='bonespikes'||query.get_equipped_item_name=='killer_storm')&&query.is_using_item"
+      },
+      {
+       "hold_side": "query.variant>=300&&query.variant<1000&&(query.get_equipped_item_name=='gb'||query.get_equipped_item_name=='blasters'||query.get_equipped_item_name=='dgb'||query.get_equipped_item_name=='killer_gb'||query.get_equipped_item_name=='nightmare_blast')&&query.is_using_item"
+      },
+      {
+       "hold_cir": "query.variant>=300&&query.variant<1000&&(query.get_equipped_item_name=='gravity'||query.get_equipped_item_name=='dgravity'||query.get_equipped_item_name=='killer_circle')&&query.is_using_item"
+      },
+      {
+       "bottle_up": "query.variant>=300&&query.variant<1000&&(query.get_equipped_item_name=='ketchup_bottle')&&query.is_using_item"
+      }
+     ]
+    },
+    "throw_cast": {
+     "animations": [
+      "sans_axe_throw"
+     ],
+     "on_entry": [
+      "variable.sg=0;variable.sb=0;variable.sw=0;"
+     ],
+     "blend_transition": 0.05,
+     "transitions": [
+      {
+       "throw_wait": "query.all_animations_finished"
+      }
+     ]
+    },
+    "throw_wait": {
+     "animations": [
+      {
+       "sans_pocket_r": "variable.attack_time<=0"
+      }
+     ],
+     "blend_transition": 0.15,
+     "transitions": [
+      {
+       "idle": "!query.is_using_item||query.get_equipped_item_name!='axe_throw'"
+      }
+     ]
+    }
+   }
+  }
+ }
+}

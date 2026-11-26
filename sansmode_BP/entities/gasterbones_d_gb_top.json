@@ -1,0 +1,146 @@
+{
+"format_version":"1.8.0",
+"minecraft:entity":{
+"description":{
+"identifier":"gasterbones:d_gb_top",
+"is_spawnable":false,
+"is_summonable":true,
+"is_experimental":false,
+"runtime_identifier":"gasterbones:d_gb_top",
+"scripts":{"animate":[
+"d_gb_top"
+]},"animations":{
+"d_gb_top":"controller.animation.d_gb_top"
+}
+},
+
+"components":{
+            "minecraft:scale": {
+          "value": 1.78
+        },
+         "minecraft:spell_effects": {
+          "add_effects": [
+            {
+              "effect": "levitation",
+              "amplifier": 0,
+              "visible": true,
+              "ambient": true,
+              "duration": 999999
+            }
+          ]
+       },
+"minecraft:explode":{
+"fuseLength":3.0,
+"fuseLit":true,
+"power":0,
+"causesFire":false,
+"destroyAffectedByGriefing":true
+},
+"minecraft:shooter":{
+"def":"gasterbones:d_gbx"
+},
+"minecraft:behavior.ranged_attack":{
+"priority":2,
+"charge_charged_trigger":0.5,
+"charge_shoot_trigger":0.5,
+"attack_radius":30,
+"burst_shots":990,
+"burst_interval":0.4
+},
+"minecraft:fire_immune":true,
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "entity_types": [
+           {
+            "filters": {
+               "any_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "operator": "==",
+                  "value": "pst"
+                }
+              ]
+            },
+            "max_dist": 30
+          }
+        ],
+        "must_see": true
+      },
+
+"minecraft:fall_damage":{
+"value":0.0
+},
+"minecraft:knockback_resistance":{
+"value":1.0
+},
+"minecraft:nameable":{
+},
+
+"minecraft:type_family":{
+"family":["sans","psans"]
+},
+"minecraft:variant":{
+"value":0
+},
+"minecraft:breathable":{
+"totalSupply":15,
+"suffocateTime":0
+},
+"minecraft:collision_box":{
+"width":0.5,
+"height":0.6
+},
+"minecraft:health":{
+"value":1,
+"min":1,
+"max":1
+},
+"minecraft:attack":{
+"damage":12
+},
+"minecraft:movement":{
+"value":0.3
+},
+"minecraft:navigation.walk":{
+"can_path_over_water":true
+},
+"minecraft:movement.basic":{
+},
+"minecraft:jump.static":{
+},
+"minecraft:follow_range":{
+"value":60
+},
+"minecraft:behavior.float":{
+"priority":0
+},
+ 
+"minecraft:physics":{
+}
+},
+
+"events":{
+"mode1":{
+"add":{"component_groups":["mode1"]}},
+"stop_mode1":{
+"remove":{"component_groups":["mode1"]}},
+"stop_gb":{
+"remove":{"component_groups":["gb"]},"add":{"component_groups":["base"]}},
+"gb":{
+"add":{"component_groups":["gb"]}},
+
+"boom":{
+"add":{"component_groups":["boom"]}},
+"healthy":{
+"add":{"component_groups":["healthy"]}},
+
+"mode0":{
+"add":{"component_groups":["mode0"]}},
+"stop_mode0":{
+"remove":{"component_groups":["mode0"]},"add":{"component_groups":["mode","base"]}}
+
+
+}
+}
+}

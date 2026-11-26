@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "dustsans:dbone",
+      "category": "Nature"
+    },
+
+    "components": {
+      "minecraft:use_animation": "bow",
+      "minecraft:icon": "dustsans_dbone",
+       "minecraft:hover_text_color": "light_purple",
+//BY HDL123
+      "minecraft:render_offsets": "psansbone"
+    }
+  }
+}

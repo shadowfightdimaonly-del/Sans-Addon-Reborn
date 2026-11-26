@@ -1,0 +1,82 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.psans": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.default",
+            "Material.invisible"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Array.materials[query.is_invisible]"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    },
+    "controller.render.psans2": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.default",
+            "Material.invisible"
+          ]
+        }
+      },
+      "filter_lighting": true,
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Array.materials[query.is_invisible]"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    },
+    "controller.render.dust_bone": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.default",
+            "Material.invisible"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Array.materials[query.is_invisible]"
+        }
+      ],
+      "textures": [
+        "query.variant==2 ? Texture.blue : (query.variant==1 ? Texture.red : Texture.default)"
+      ]
+    },
+    "controller.render.bone_blue": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.default",
+            "Material.invisible"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Array.materials[query.is_invisible]"
+        }
+      ],
+      "textures": [
+        "query.variant==2 ? Texture.blue : Texture.default"
+      ]
+    }
+  }
+}

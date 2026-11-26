@@ -1,0 +1,61 @@
+{
+  "format_version": "1.21.120",
+  "minecraft:item": {
+    "description": {
+      "identifier": "horrorsans:cleaver",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.sword"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "horrorsans_cleaver"
+        }
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:stacked_by_data": true,
+      "minecraft:glint": false,
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": 13,
+      "minecraft:enchantable": {
+        "slot": "all",
+        "value": 10
+      },
+      "minecraft:durability": {
+        "max_durability": 9999
+      },
+      "minecraft:mining_speed": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "horrorsans:cleaver"
+            ],
+            "repair_amount": "context.other->query.remaining_durability + 0.2 * context.other->query.max_durability"
+          }
+        ]
+      },
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_sword",
+          "minecraft:transformable_items"
+        ]
+      },
+      "minecraft:swing_duration": {
+        "value": 0.3
+      },
+      "minecraft:cooldown": {
+        "category": "horror_cleaver_cooldown",
+        "duration": 0.0,
+        "type": "use"
+      },
+      "minecraft:fire_resistant": {
+        "value": true
+      }
+    }
+  }
+}

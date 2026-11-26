@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.pcraw": {
+      "geometry": "Geometry.t",
+    "filter_lighting": true,
+      "materials": [ { "*": "Material.t" } ],
+      "textures": [ "Texture.t" ],
+      "overlay_color": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+      },
+      "light_color_multiplier": 1.0,
+      "ignore_lighting" : true
+    }
+  }
+}

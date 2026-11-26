@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "horrorsans:cleaver",
+      "category": "Nature"
+    },
+
+    "components": {
+      "minecraft:icon": "horrorsans_cleaver",
+      "minecraft:hover_text_color": "red",
+      "minecraft:render_offsets": "psansbone"
+    }
+  }
+}

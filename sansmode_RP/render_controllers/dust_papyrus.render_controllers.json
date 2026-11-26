@@ -1,0 +1,52 @@
+{
+ "format_version": "1.8.0",
+ "render_controllers": {
+  "controller.render.dust_papyrus": {
+   "geometry": "Geometry.default",
+   "materials": [
+    {
+     "*": "Material.default"
+    }
+   ],
+   "textures": [
+    "Texture.default"
+   ],
+   "color": {
+    "r": "1",
+    "g": "1",
+    "b": "1",
+    "a": "0.62"
+   },
+   "part_visibility": [
+    {
+     "head": "query.variant==0"
+    }
+   ]
+  },
+  "controller.render.dust_papyrus_head": {
+   "geometry": "Geometry.default",
+   "materials": [
+    {
+     "*": "Material.default"
+    }
+   ],
+   "textures": [
+    "Texture.default"
+   ],
+   "color": {
+    "r": "1",
+    "g": "1",
+    "b": "1",
+    "a": "0.8"
+   },
+   "part_visibility": [
+    {
+     "*": "0"
+    },
+    {
+     "head": "1"
+    }
+   ]
+  }
+ }
+}

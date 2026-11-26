@@ -1,0 +1,107 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "dustsans:papyrus_head",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      },
+      "full": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "headless": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "sans",
+          "psans",
+          "inanimate"
+        ]
+      },
+      "minecraft:variant": {
+        "value": 0
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 0.6
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:timer": {
+        "time": [
+          8.0,
+          8.0
+        ],
+        "looping": false,
+        "time_down_event": {
+          "event": "dustsans:despawn"
+        }
+      }
+    },
+    "events": {
+      "dustsans:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "dustsans:headless": {
+        "remove": {
+          "component_groups": [
+            "full"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "headless"
+          ]
+        }
+      },
+      "dustsans:full": {
+        "remove": {
+          "component_groups": [
+            "headless"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "full"
+          ]
+        }
+      }
+    }
+  }
+}

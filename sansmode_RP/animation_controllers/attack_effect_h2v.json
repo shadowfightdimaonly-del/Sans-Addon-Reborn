@@ -1,0 +1,222 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.player_effect_h2v": {
+      "initial_state": "snow",
+      "states": {
+        "snow": {
+          "particle_effects": [
+            {
+              "effect": "sans",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "error": "query.skin_id == 110 || query.skin_id == 111 || query.skin_id == 112"
+            },
+            {
+              "dust": "query.variant >= 500 && query.variant < 600"
+            },
+            {
+              "night": "query.variant >= 600 && query.variant < 700"
+            },
+            {
+              "killer": "query.variant >= 700 && query.variant < 800"
+            },
+            {
+              "horror": "query.variant>=800 && query.variant<900"
+            },
+            {
+              "lastbreath": "query.variant >= 900 && query.variant < 1000"
+            },
+            {
+              "gaster": "query.variant >= 1000"
+            }
+          ]
+        },
+        "error": {
+          "particle_effects": [
+            {
+              "effect": "sans_error",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "snow": "query.skin_id != 110 && query.skin_id != 111 && query.skin_id != 112"
+            }
+          ]
+        },
+        "dust": {
+          "particle_effects": [
+            {
+              "effect": "sans_dust",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "snow": "query.variant < 500"
+            },
+            {
+              "night": "query.variant >= 600 && query.variant < 700"
+            },
+            {
+              "killer": "query.variant >= 700 && query.variant < 800"
+            },
+            {
+              "horror": "query.variant>=800 && query.variant<900"
+            },
+            {
+              "lastbreath": "query.variant >= 900 && query.variant < 1000"
+            },
+            {
+              "gaster": "query.variant >= 1000"
+            }
+          ]
+        },
+        "night": {
+          "particle_effects": [
+            {
+              "effect": "sans_night",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "snow": "query.variant < 500"
+            },
+            {
+              "dust": "query.variant >= 500 && query.variant < 600"
+            },
+            {
+              "killer": "query.variant >= 700 && query.variant < 800"
+            },
+            {
+              "horror": "query.variant>=800 && query.variant<900"
+            },
+            {
+              "lastbreath": "query.variant >= 900 && query.variant < 1000"
+            },
+            {
+              "gaster": "query.variant >= 1000"
+            }
+          ]
+        },
+        "killer": {
+          "particle_effects": [
+            {
+              "effect": "sans_killer",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "snow": "query.variant < 500"
+            },
+            {
+              "dust": "query.variant >= 500 && query.variant < 600"
+            },
+            {
+              "night": "query.variant >= 600 && query.variant < 700"
+            },
+            {
+              "horror": "query.variant>=800 && query.variant<900"
+            },
+            {
+              "lastbreath": "query.variant >= 900 && query.variant < 1000"
+            },
+            {
+              "gaster": "query.variant >= 1000"
+            }
+          ]
+        },
+        "lastbreath": {
+          "particle_effects": [
+            {
+              "effect": "sans_dust",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "snow": "query.variant < 500"
+            },
+            {
+              "dust": "query.variant >= 500 && query.variant < 600"
+            },
+            {
+              "night": "query.variant >= 600 && query.variant < 700"
+            },
+            {
+              "killer": "query.variant >= 700 && query.variant < 800"
+            },
+            {
+              "horror": "query.variant>=800 && query.variant<900"
+            },
+            {
+              "gaster": "query.variant >= 1000"
+            }
+          ]
+        },
+        "horror": {
+          "particle_effects": [
+            {
+              "effect": "sansmode:dust_spark",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "snow": "query.variant<500"
+            },
+            {
+              "dust": "query.variant>=500 && query.variant<600"
+            },
+            {
+              "night": "query.variant>=600 && query.variant<700"
+            },
+            {
+              "killer": "query.variant>=700 && query.variant<800"
+            },
+            {
+              "lastbreath": "query.variant>=900 && query.variant<1000"
+            },
+            {
+              "gaster": "query.variant >= 1000"
+            }
+          ]
+        },
+        "gaster": {
+          "particle_effects": [
+            {
+              "effect": "sans_gaster",
+              "locator": "sans"
+            }
+          ],
+          "transitions": [
+            {
+              "snow": "query.variant < 500"
+            },
+            {
+              "dust": "query.variant>=500 && query.variant<600"
+            },
+            {
+              "night": "query.variant>=600 && query.variant<700"
+            },
+            {
+              "killer": "query.variant>=700 && query.variant<800"
+            },
+            {
+              "horror": "query.variant>=800 && query.variant<900"
+            },
+            {
+              "lastbreath": "query.variant>=900 && query.variant<1000"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

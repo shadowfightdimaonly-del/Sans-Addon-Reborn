@@ -1,0 +1,16 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.psans": {
+      "states": {
+        "default": {
+          "animations": [
+            { "pbone": [] },
+       { "pgb_move": [] },
+          { "player_sans": [] }    
+            ]
+        }
+      }
+    }
+  }
+}

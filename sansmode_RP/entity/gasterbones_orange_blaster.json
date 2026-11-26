@@ -1,0 +1,34 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "gasterbones:orange_blaster",
+      "materials": {
+        "default": "psans",
+        "invisible": "psans2",
+        "t": "psans"
+      },
+      "textures": {
+        "default": "gs_blaster_orange",
+        "t": "gs_beam_orange"
+      },
+      "geometry": {
+        "default": "geometry.gaster_pcraw_top",
+        "t": "geometry.psansfire"
+      },
+      "render_controllers": [
+        "controller.render.psans2",
+        "controller.render.pcraw_gs"
+      ],
+      "enable_attachables": false,
+      "animations": {
+        "ult": "animation.ult_blaster"
+      },
+      "scripts": {
+        "animate": [
+          "ult"
+        ]
+      }
+    }
+  }
+}

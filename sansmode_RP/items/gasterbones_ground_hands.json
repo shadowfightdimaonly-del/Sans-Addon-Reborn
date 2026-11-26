@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "gasterbones:ground_hands",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:use_animation": "bow",
+      "minecraft:icon": "gs_ground",
+      "minecraft:hover_text_color": "white",
+      "minecraft:render_offsets": "psansbone"
+    }
+  }
+}

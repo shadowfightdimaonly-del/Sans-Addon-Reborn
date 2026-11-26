@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "horrorsans:thrown_axe",
+      "materials": {
+        "default": "entity_alphatest",
+        "invisible": "entity_alphatest"
+      },
+      "textures": {
+        "default": "horrorsans_thrown_axe"
+      },
+      "geometry": {
+        "default": "geometry.horror_thrown_axe"
+      },
+      "render_controllers": [
+        "controller.render.psans"
+      ],
+      "enable_attachables": false,
+      "animations": {
+        "spin": "animation.horror_thrown_axe.spin"
+      },
+      "scripts": {
+        "animate": [
+          "spin"
+        ]
+      }
+    }
+  }
+}

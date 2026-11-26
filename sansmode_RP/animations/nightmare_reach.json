@@ -1,0 +1,154 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.nightmare_reach": {
+   "loop": true,
+   "bones": {
+    "rt0": {
+     "scale": [
+      "variable.nm_mode>0?1:0.001",
+      "variable.nm_mode>0?1:0.001",
+      "variable.nm_mode>0?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(-10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+0)*2)+8",
+      0
+     ]
+    },
+    "rt1": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+60)*2)+8",
+      0
+     ]
+    },
+    "rt2": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(-10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+120)*2)+8",
+      0
+     ]
+    },
+    "rt3": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+180)*2)+8",
+      0
+     ]
+    },
+    "rt4": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+169)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(-13/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+240)*2)+8",
+      0
+     ]
+    },
+    "rt5": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+169)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(13/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+300)*2)+8",
+      0
+     ]
+    },
+    "rf0": {
+     "scale": [
+      "variable.nm_mode>0?1:0.001",
+      "variable.nm_mode>0?1:0.001",
+      "variable.nm_mode>0?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(-10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+0)*2)+8",
+      0
+     ]
+    },
+    "rf1": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+60)*2)+8",
+      0
+     ]
+    },
+    "rf2": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(-10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+120)*2)+8",
+      0
+     ]
+    },
+    "rf3": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+100)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(10/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+180)*2)+8",
+      0
+     ]
+    },
+    "rf4": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+169)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(-13/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+240)*2)+8",
+      0
+     ]
+    },
+    "rf5": {
+     "scale": [
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?1:0.001",
+      "variable.nm_mode==2?Math.sqrt(Math.pow(variable.nm_len*17.07+6,2)+169)/32:0.001"
+     ],
+     "rotation": [
+      0,
+      "(-Math.atan(13/(variable.nm_len*17.07+6))+Math.sin(query.life_time*260+300)*2)+8",
+      0
+     ]
+    }
+   }
+  }
+ }
+}

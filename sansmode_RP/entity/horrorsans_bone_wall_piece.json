@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "horrorsans:bone_wall_piece",
+      "materials": {
+        "default": "entity_alphatest",
+        "invisible": "entity_alphatest"
+      },
+      "textures": {
+        "default": "horrorsans_spike",
+        "blue": "bone_spike_blue"
+      },
+      "geometry": {
+        "default": "geometry.sans_bone_spike"
+      },
+      "render_controllers": [
+        "controller.render.bone_blue"
+      ],
+      "enable_attachables": false,
+      "animations": {
+        "emerge": "animation.bone_wall.emerge"
+      },
+      "scripts": {
+        "animate": [
+          "emerge"
+        ]
+      }
+    }
+  }
+}

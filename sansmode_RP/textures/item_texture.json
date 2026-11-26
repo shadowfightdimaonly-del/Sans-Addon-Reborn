@@ -1,0 +1,221 @@
+{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "sansbone": {
+      "textures": "sansbone"
+    },
+    "sanscontrol": {
+      "textures": "blue_health"
+    },
+    "sansgb": {
+      "textures": "player_gb"
+    },
+    "playersans_gravity": {
+      "textures": "gravity_soul"
+    },
+    "playersans_sansmove": {
+      "textures": "sansmove"
+    },
+    "sanstrial": {
+      "textures": "player_trial_icon"
+    },
+    "psans:face": {
+      "textures": [
+        "psans_face"
+      ]
+    },
+    "playersans_telekinesis": {
+      "textures": "playersans_telekinesis"
+    },
+    "playersans_bone_wall": {
+      "textures": "playersans_bone_wall"
+    },
+    "playersans_bone_spikes": {
+      "textures": "playersans_bone_spikes"
+    },
+    "playersans_final_attack": {
+      "textures": "playersans_final_attack"
+    },
+    "horrorsans_axe": {
+      "textures": "horrorsans_axe"
+    },
+    "horrorsans_bone": {
+      "textures": "horrorsans_bone"
+    },
+    "horrorsans_cleaver": {
+      "textures": "horrorsans_cleaver"
+    },
+    "horrorsans_teleport": {
+      "textures": "horrorsans_teleport"
+    },
+    "dustsans_dbone": {
+      "textures": "dsansbone"
+    },
+    "dustsans_dgb": {
+      "textures": "dplayer_gb"
+    },
+    "dustsans_dcontrol": {
+      "textures": "blue_health"
+    },
+    "dustsans_dmove": {
+      "textures": "dsansmove"
+    },
+    "dustsans_dtelekinesis": {
+      "textures": "dplayersans_telekinesis"
+    },
+    "dustsans_dspikes": {
+      "textures": "dplayersans_bone_spikes"
+    },
+    "dustsans_dwall": {
+      "textures": "dplayersans_bone_wall"
+    },
+    "dustsans_dultimate": {
+      "textures": "dplayersans_final_attack"
+    },
+    "dustsans_dtrial": {
+      "textures": "dplayer_trial_icon"
+    },
+    "dustsans_dgravity": {
+      "textures": "dgravity_soul"
+    },
+    "dustsans_dunder": {
+      "textures": "dunder_icon"
+    },
+    "dustsans_dpapyrus": {
+      "textures": "dpapyrus_icon"
+    },
+    "dustsans_pbones": {
+      "textures": "dpapyrus_bones_icon"
+    },
+    "dustsans_phead": {
+      "textures": "dpapyrus_head_icon"
+    },
+    "dustsans_prow": {
+      "textures": "dpapyrus_row_icon"
+    },
+    "dustsans_pscarf": {
+      "textures": "dpapyrus_scarf_icon"
+    },
+    "nightmaresans_nightmare_tent": {
+      "textures": "nightmare_tent_icon"
+    },
+    "nightmaresans_nightmare_blast": {
+      "textures": "nightmare_blast_icon"
+    },
+    "nightmaresans_nightmare_warp": {
+      "textures": "nightmare_warp_icon"
+    },
+    "nightmaresans_nightmare_absorb": {
+      "textures": "nightmare_absorb_icon"
+    },
+    "nightmaresans_nightmare_puddle": {
+      "textures": "nightmare_puddle_icon"
+    },
+    "nightmaresans_nightmare_strike": {
+      "textures": "nightmare_strike_icon"
+    },
+    "nightmaresans_nightmare_grab": {
+      "textures": "nightmare_grab_icon"
+    },
+    "nightmaresans_nightmare_ult": {
+      "textures": "nightmare_ult_icon"
+    },
+    "killersans_killer_knife": {
+      "textures": "killer_knife_icon"
+    },
+    "killersans_killer_fan": {
+      "textures": "killer_fan_icon"
+    },
+    "killersans_killer_circle": {
+      "textures": "killer_circle_icon"
+    },
+    "killersans_killer_blaster": {
+      "textures": "killer_blaster_icon"
+    },
+    "killersans_killer_knock": {
+      "textures": "killer_knock_icon"
+    },
+    "killersans_killer_tele": {
+      "textures": "killer_tele_icon"
+    },
+    "killersans_killer_bone": {
+      "textures": "killer_bone_icon"
+    },
+    "killersans_killer_storm": {
+      "textures": "killer_storm_icon"
+    },
+    "killersans_killer_ult": {
+      "textures": "killer_ult_icon"
+    },
+    "sans_ketchup_bottle": {
+      "textures": "ketchup_bottle_icon"
+    },
+    "horrorsans_spikes": {
+      "textures": "horrorsans_spikes"
+    },
+    "horrorsans_consume": {
+      "textures": "horrorsans_consume"
+    },
+    "horrorsans_hunt": {
+      "textures": "horrorsans_hunt"
+    },
+    "horrorsans_bone_wall": {
+      "textures": "horrorsans_bone_wall"
+    },
+    "horrorsans_axe_throw": {
+      "textures": "horrorsans_axe_throw"
+    },
+    "gasterbones_gaster_hand": {
+      "textures": "gasterbones_gaster_hand"
+    },
+    "gasterbones_d_gb": {
+      "textures": "gasterbones_d_gb"
+    },
+    "gs_grab": {
+      "textures": "gs_grab"
+    },
+    "gs_blue_orange": {
+      "textures": "gs_blue_orange"
+    },
+    "gs_ground": {
+      "textures": "gs_ground"
+    },
+    "gs_glitch": {
+      "textures": "gs_glitch"
+    },
+    "gs_circle": {
+      "textures": "gs_circle"
+    },
+    "gs_ult": {
+      "textures": "gs_ult"
+    },
+    "errorbones_strings": {
+      "textures": "errorbones_strings"
+    },
+    "errorbones_bones": {
+      "textures": "errorbones_bones"
+    },
+    "errorbones_blasters": {
+      "textures": "errorbones_blasters"
+    },
+    "errorbones_teleport": {
+      "textures": "errorbones_teleport"
+    },
+    "errorbones_ultimate": {
+      "textures": "errorbones_ultimate"
+    },
+    "errorbones_bonespikes": {
+      "textures": "errorbones_bonespikes"
+    },
+    "errorbones_grab": {
+      "textures": "errorbones_grab"
+    },
+    "errorbones_chaos": {
+      "textures": "errorbones_chaos"
+    },
+    "red_knife": {
+      "textures": "killer_knife_icon"
+    }
+  }
+}

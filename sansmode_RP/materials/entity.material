@@ -1,0 +1,10 @@
+{
+"materials":{
+"version":"1.0.0",
+    "pgb:charged_creeper": {},
+    "psans:entity_emissive_alpha": {},
+    "psans2:entity_emissive_alpha": {
+      "+defines": [ "USE_ONLY_EMISSIVE" ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+kill @e[type=item,name="Sans模式 重力控制"]

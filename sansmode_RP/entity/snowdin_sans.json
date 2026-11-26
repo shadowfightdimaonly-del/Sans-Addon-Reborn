@@ -1,0 +1,37 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sansmode:snowdin_sans",
+      "materials": {
+        "default": "psans"
+      },
+      "textures": {
+        "calm": "psans",
+        "cold": "psans_cold",
+        "blue": "psans_trial",
+        "sleep": "psans_sleep"
+      },
+      "geometry": {
+        "default": "geometry.sans_v3"
+      },
+      "animations": {
+        "walk": "animation.snowdin_sans.walk",
+        "look": "animation.snowdin_sans.look"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "look"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.snowdin_sans"
+      ],
+      "spawn_egg": {
+        "base_color": "#D9D9EE",
+        "overlay_color": "#2F5BD8"
+      }
+    }
+  }
+}

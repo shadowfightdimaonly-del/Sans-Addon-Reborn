@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "horrorsans:axe_throw",
+      "category": "Nature"
+    },
+
+    "components": {
+      "minecraft:use_animation": "bow",
+      "minecraft:icon": "horrorsans_axe_throw",
+      "minecraft:hover_text_color": "red",
+      "minecraft:render_offsets": "psansbone"
+    }
+  }
+}

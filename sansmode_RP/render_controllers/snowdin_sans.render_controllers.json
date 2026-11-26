@@ -1,0 +1,37 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.snowdin_sans": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.calm",
+            "Texture.calm",
+            "Texture.cold",
+            "Texture.cold",
+            "Texture.blue",
+            "Texture.sleep",
+            "Texture.calm"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[query.variant]"
+      ],
+      "part_visibility": [
+        {
+          "hood": false
+        },
+        {
+          "sweat": "query.variant == 6"
+        }
+      ]
+    }
+  }
+}

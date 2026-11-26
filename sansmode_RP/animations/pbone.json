@@ -1,0 +1,315 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.player_sans": {
+   "loop": true,
+   "bones": {
+    "body": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      "variable.player_trial*-90",
+      0,
+      0
+     ]
+    }
+   }
+  },
+  "animation.pbone": {
+   "loop": true,
+   "bones": {
+    "body": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      -90,
+      "query.life_time*-600",
+      0
+     ]
+    }
+   }
+  },
+  "animation.pgb_move": {
+   "loop": true,
+   "bones": {
+    "long": {
+     "rotation": [
+      "query.target_x_rotation",
+      "query.target_y_rotation",
+      0.0
+     ],
+     "scale": 1.0,
+     "position": [
+      -1.2,
+      -3.5,
+      -2
+     ]
+    },
+    "long2": {
+     "rotation": [
+      "-50+Math.min(70,query.life_time*95)",
+      0,
+      0
+     ],
+     "scale": 1.0,
+     "position": [
+      0,
+      0,
+      0
+     ]
+    },
+    "nbody": {
+     "rotation": [
+      "query.target_x_rotation",
+      "query.target_y_rotation",
+      0.0
+     ],
+     "scale": [
+      "variable.has_target*Math.min(1.6,query.life_time*2+0.8)",
+      "variable.has_target*Math.min(1.6,query.life_time*2+0.8)",
+      "variable.has_target*Math.min(1,query.life_time*0.4)"
+     ],
+     "position": [
+      0,
+      3,
+      0.5
+     ]
+    }
+   }
+  },
+  "animation.pgb_move_right": {
+   "loop": true,
+   "bones": {
+    "long": {
+     "rotation": [
+      "query.target_x_rotation",
+      "query.target_y_rotation",
+      0.0
+     ],
+     "scale": 1.0,
+     "position": [
+      1.2,
+      -3.5,
+      -2
+     ]
+    },
+    "long2": {
+     "rotation": [
+      "-50+Math.min(70,query.life_time*95)",
+      0,
+      0
+     ],
+     "scale": 1.0,
+     "position": [
+      0,
+      0,
+      0
+     ]
+    },
+    "nbody": {
+     "rotation": [
+      "query.target_x_rotation",
+      "query.target_y_rotation",
+      0.0
+     ],
+     "scale": [
+      "variable.has_target*Math.min(1.6,query.life_time*2+0.8)",
+      "variable.has_target*Math.min(1.6,query.life_time*2+0.8)",
+      "variable.has_target*Math.min(1,query.life_time*0.4)"
+     ],
+     "position": [
+      0,
+      3,
+      0.5
+     ]
+    }
+   }
+  },
+  "animation.bone_spike.emerge": {
+   "loop": "hold_on_last_frame",
+   "animation_length": 1.2,
+   "bones": {
+    "spike_bone": {
+     "position": {
+      "0.0": [
+       0,
+       -44,
+       0
+      ],
+      "0.04": [
+       0,
+       -44,
+       0
+      ],
+      "0.2": [
+       0,
+       0,
+       0
+      ],
+      "0.85": [
+       0,
+       0,
+       0
+      ],
+      "1.1": [
+       0,
+       -44,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.ult_blaster": {
+   "loop": true,
+   "bones": {
+    "long": {
+     "rotation": [
+      "query.target_x_rotation",
+      "query.target_y_rotation",
+      0.0
+     ],
+     "position": [
+      0,
+      -3.5,
+      -2
+     ]
+    },
+    "long2": {
+     "rotation": [
+      "-50+Math.min(70,query.life_time*95)",
+      0,
+      0
+     ]
+    },
+    "nbody": {
+     "rotation": [
+      "query.target_x_rotation",
+      "query.target_y_rotation",
+      0.0
+     ],
+     "position": [
+      0,
+      3,
+      0.5
+     ],
+     "scale": [
+      "(query.mark_variant==2)*(2.6+0.5*Math.sin(query.life_time*2400))",
+      "(query.mark_variant==2)*(2.6+0.5*Math.sin(query.life_time*2400))",
+      "(query.mark_variant==2)*0.35"
+     ]
+    }
+   }
+  },
+  "animation.bone_wall.emerge": {
+   "loop": "hold_on_last_frame",
+   "animation_length": 4.4,
+   "bones": {
+    "spike_bone": {
+     "position": {
+      "0.0": [
+       0,
+       -44,
+       0
+      ],
+      "0.04": [
+       0,
+       -44,
+       0
+      ],
+      "0.22": [
+       0,
+       0,
+       0
+      ],
+      "3.95": [
+       0,
+       0,
+       0
+      ],
+      "4.25": [
+       0,
+       -44,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.bone_arena.emerge": {
+   "loop": "hold_on_last_frame",
+   "animation_length": 8.6,
+   "bones": {
+    "spike_bone": {
+     "position": {
+      "0.0": [
+       0,
+       -44,
+       0
+      ],
+      "0.04": [
+       0,
+       -44,
+       0
+      ],
+      "0.22": [
+       0,
+       0,
+       0
+      ],
+      "7.85": [
+       0,
+       0,
+       0
+      ],
+      "8.15": [
+       0,
+       -44,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.sans_pockets": {
+   "loop": true,
+   "override_previous_animation": true,
+   "bones": {
+    "leftArm": {
+     "rotation": [
+      10,
+      0,
+      24
+     ]
+    },
+    "rightArm": {
+     "rotation": [
+      10,
+      0,
+      -24
+     ]
+    },
+    "leftArm2": {
+     "rotation": [
+      -40,
+      0,
+      -75
+     ]
+    },
+    "rightArm2": {
+     "rotation": [
+      -40,
+      0,
+      75
+     ]
+    }
+   }
+  }
+ }
+}

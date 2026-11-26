@@ -1,0 +1,31 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "horrorsans:pbone",
+      "materials": {
+        "default": "psans",
+        "invisible": "psans2"
+      },
+      "textures": {
+        "default": "horrorsans_pbone"
+      },
+      "geometry": {
+        "default": "geometry.psansbone"
+      },
+        "spawn_egg": {
+        "texture": "psans:face",
+        "texture_index": 0
+      },
+         "animation_controllers": [
+        { "psans": "controller.animation.psans" }
+      ],
+
+      "animations": {
+       "pbone": "animation.pbone"
+      },
+      "render_controllers": [ "controller.render.psans" ],
+      "enable_attachables": true
+    }
+  }
+}

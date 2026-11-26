@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "playersans:control",
+      "category": "Nature"
+    },
+
+    "components": {
+      "minecraft:use_animation": "bow",
+      "minecraft:icon": "sanscontrol",
+       "minecraft:hover_text_color": "light_purple",
+//BY HDL123
+      "minecraft:render_offsets": "psansbone"
+    }
+  }
+}

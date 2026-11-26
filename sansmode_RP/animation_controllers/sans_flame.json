@@ -1,0 +1,94 @@
+{
+ "format_version": "1.10.0",
+ "animation_controllers": {
+  "controller.animation.sans_flame": {
+   "initial_state": "off",
+   "states": {
+    "off": {
+     "transitions": [
+      {
+       "f_blue": "variable.sg>0&&(query.variant>=300&&query.variant<400)"
+      },
+      {
+       "f_dust": "variable.sg>0&&(query.variant>=500&&query.variant<600)"
+      },
+      {
+       "f_night": "variable.sg>0&&(query.variant>=600&&query.variant<700)"
+      },
+      {
+       "f_red": "variable.sg>0&&(query.variant>=700&&query.variant<900)"
+      },
+      {
+       "f_purple": "variable.sg>0&&(query.variant>=900&&query.variant<1000)"
+      }
+     ]
+    },
+    "f_blue": {
+     "particle_effects": [
+      {
+       "effect": "flame_blue",
+       "locator": "flame"
+      }
+     ],
+     "transitions": [
+      {
+       "off": "variable.sg<=0||!(query.variant>=300&&query.variant<400)"
+      }
+     ]
+    },
+    "f_dust": {
+     "particle_effects": [
+      {
+       "effect": "flame_dust",
+       "locator": "flame"
+      }
+     ],
+     "transitions": [
+      {
+       "off": "variable.sg<=0||!(query.variant>=500&&query.variant<600)"
+      }
+     ]
+    },
+    "f_night": {
+     "particle_effects": [
+      {
+       "effect": "flame_night",
+       "locator": "flame_night"
+      }
+     ],
+     "transitions": [
+      {
+       "off": "variable.sg<=0||!(query.variant>=600&&query.variant<700)"
+      }
+     ]
+    },
+    "f_red": {
+     "particle_effects": [
+      {
+       "effect": "flame_red",
+       "locator": "flame"
+      }
+     ],
+     "transitions": [
+      {
+       "off": "variable.sg<=0||!(query.variant>=700&&query.variant<900)"
+      }
+     ]
+    },
+    "f_purple": {
+     "particle_effects": [
+      {
+       "effect": "flame_purple",
+       "locator": "flame"
+      }
+     ],
+     "transitions": [
+      {
+       "off": "variable.sg<=0||!(query.variant>=900&&query.variant<1000)"
+      }
+     ]
+    }
+   }
+  }
+ }
+}

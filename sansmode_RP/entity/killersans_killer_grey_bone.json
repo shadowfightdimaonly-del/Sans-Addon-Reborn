@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "killersans:killer_grey_bone",
+      "materials": {
+        "default": "entity_alphatest",
+        "invisible": "entity_alphatest"
+      },
+      "textures": {
+        "default": "killer_grey_bone"
+      },
+      "geometry": {
+        "default": "geometry.sans_flying_bone"
+      },
+      "render_controllers": [
+        "controller.render.psans"
+      ],
+      "enable_attachables": false
+    }
+  }
+}

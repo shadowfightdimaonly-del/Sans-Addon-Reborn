@@ -1,0 +1,96 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.nightmare_tentacle.emerge": {
+   "loop": "hold_on_last_frame",
+   "animation_length": 1.2,
+   "bones": {
+    "spike_bone": {
+     "position": {
+      "0.0": [
+       0,
+       -44,
+       0
+      ],
+      "0.04": [
+       0,
+       -44,
+       0
+      ],
+      "0.2": [
+       0,
+       0,
+       0
+      ],
+      "0.85": [
+       0,
+       0,
+       0
+      ],
+      "1.1": [
+       0,
+       -44,
+       0
+      ]
+     }
+    },
+    "t0": {
+     "rotation": [
+      "Math.sin(query.life_time*420+0)*2.0",
+      0,
+      "Math.sin(query.life_time*520+0)*4.0"
+     ]
+    },
+    "t1": {
+     "rotation": [
+      "Math.sin(query.life_time*420+35)*2.6",
+      0,
+      "Math.sin(query.life_time*520+40)*5.2"
+     ]
+    },
+    "t2": {
+     "rotation": [
+      "Math.sin(query.life_time*420+70)*3.2",
+      0,
+      "Math.sin(query.life_time*520+80)*6.4"
+     ]
+    },
+    "t3": {
+     "rotation": [
+      "Math.sin(query.life_time*420+105)*3.8",
+      0,
+      "Math.sin(query.life_time*520+120)*7.6"
+     ]
+    },
+    "t4": {
+     "rotation": [
+      "Math.sin(query.life_time*420+140)*4.4",
+      0,
+      "Math.sin(query.life_time*520+160)*8.8"
+     ]
+    },
+    "t5": {
+     "rotation": [
+      "Math.sin(query.life_time*420+175)*5.0",
+      0,
+      "Math.sin(query.life_time*520+200)*10.0"
+     ]
+    },
+    "t6": {
+     "rotation": [
+      "Math.sin(query.life_time*420+210)*5.6",
+      0,
+      "Math.sin(query.life_time*520+240)*11.2"
+     ]
+    },
+    "t7": {
+     "rotation": [
+      "Math.sin(query.life_time*420+245)*6.2",
+      0,
+      "Math.sin(query.life_time*520+280)*12.4"
+     ]
+    }
+   }
+  }
+ }
+}

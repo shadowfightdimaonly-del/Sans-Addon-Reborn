@@ -1,0 +1,252 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.player.sans_v3": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.sansmode",
+            "Material.sansmode2"
+          ]
+        }
+      },
+      "geometry": "(query.skin_id==72?Geometry.killer:(query.skin_id==101?Geometry.gaster:(query.skin_id==100?Geometry.gaster:((query.skin_id==70||query.skin_id==71)?Geometry.killer:(query.skin_id==12||query.skin_id==14||(query.skin_id>=20&&query.skin_id<=64))?Geometry.nightmare:(query.skin_id==13?Geometry.puddle:Geometry.sansmode)))))",
+      "materials": [
+        {
+          "*": "Array.materials[query.is_invisible]"
+        }
+      ],
+      "textures": [
+        "query.skin_id==15?Texture.sansmode_ult:(query.skin_id==16?Texture.sansmode_dust_ult:(query.skin_id==17?(math.mod(query.life_time*20,10)<5?Texture.sansmode_lb_ult_static:Texture.sansmode_lb_ult_black):(query.skin_id==72?Texture.sansmode_killer_ult:(query.skin_id==101?Texture.sansmode_gaster_ult:(query.skin_id==110?Texture.sansmode_error:(query.skin_id==111?Texture.sansmode_error_sleep:(query.skin_id==112?Texture.sansmode_error_dead:((query.skin_id>=90&&query.skin_id<=96)?(query.skin_id==90?Texture.sansmode_danim1:(query.skin_id==91?Texture.sansmode_danim2:(query.skin_id==92?Texture.sansmode_danim3:(query.skin_id==93?Texture.sansmode_danim4:(query.skin_id==94?Texture.sansmode_danim5:(query.skin_id==95?Texture.sansmode_danim6:Texture.sansmode_danim7)))))):(query.skin_id==70?Texture.sansmode_killer:(query.skin_id==71?Texture.sansmode_killer_sleep:((query.skin_id==12||(query.skin_id>=20&&query.skin_id<=64))?Texture.sansmode_nightmare:(query.skin_id==14?Texture.sansmode_nightmare_sleep:(query.skin_id==13?Texture.sansmode_puddle:(query.skin_id==1?Texture.sansmode_trial:(query.skin_id==2?Texture.sansmode_sleep:(query.skin_id==3?Texture.sansmode_dead:(query.skin_id==4?Texture.null:(query.skin_id==100?Texture.sansmode_gaster:(query.skin_id==5?Texture.sansmode_horror:(query.skin_id==6?Texture.sansmode_horror_sleep:(query.skin_id==7?Texture.sansmode_horror_dead:(query.skin_id==8?Texture.sansmode_dust:(query.skin_id==9?Texture.sansmode_dust_trial:(query.skin_id==10?Texture.sansmode_dust_sleep:(query.skin_id==11?Texture.sansmode_dust_dead:(query.skin_id==80?Texture.sansmode_lastbreath:(query.skin_id==81?Texture.sansmode_lastbreath_t1:(query.skin_id==82?Texture.sansmode_lastbreath_t2:(query.skin_id==83?Texture.sansmode_lastbreath_t3:(query.skin_id==84?Texture.sansmode_lastbreath_t4:(query.skin_id==85?Texture.sansmode_lastbreath_t5:(query.skin_id==86?Texture.sansmode_lastbreath_dead:(query.skin_id==87?Texture.sansmode_lastbreath_sleep:Texture.sansmode)))))))))))))))))))))))))))))))))"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "rf0": "!variable.is_first_person"
+        },
+        {
+          "rf1": "!variable.is_first_person"
+        },
+        {
+          "rf2": "!variable.is_first_person"
+        },
+        {
+          "rf3": "!variable.is_first_person"
+        },
+        {
+          "rf4": "!variable.is_first_person"
+        },
+        {
+          "rf5": "!variable.is_first_person"
+        },
+        {
+          "hood": "(query.skin_id>=8&&query.skin_id<=11)||(query.skin_id>=93&&query.skin_id<=96)"
+        },
+        {
+          "sweat": "query.variant==300||query.variant==500||query.variant==700||query.variant==800||query.variant==900"
+        },
+        {
+          "lefthand": "!(query.variant>=300&&query.variant<1000)||variable.sw>0"
+        },
+        {
+          "lefthand2": "!(query.variant>=300&&query.variant<1000)||variable.sw>0"
+        },
+        {
+          "righthand": "!(query.variant>=300&&query.variant<1000)||variable.sg>0||variable.sb>0||variable.sw>0||variable.attack_time>0"
+        },
+        {
+          "righthand2": "!(query.variant>=300&&query.variant<1000)||variable.sg>0||variable.sb>0||variable.sw>0||variable.attack_time>0"
+        },
+        {
+          "orb": "variable.sg>0"
+        },
+        {
+          "bottle": "variable.sb>0"
+        }
+      ]
+    },
+    "controller.render.player.sans": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.sansmode",
+            "Material.sansmode2"
+          ]
+        }
+      },
+      "geometry": "(query.skin_id==72?Geometry.killer:(query.skin_id==101?Geometry.gaster:((query.skin_id==70||query.skin_id==71)?Geometry.killer:(query.skin_id==12||query.skin_id==14||(query.skin_id>=20&&query.skin_id<=64))?Geometry.nightmare:(query.skin_id==13?Geometry.puddle:Geometry.sansmode))))",
+      "materials": [
+        {
+          "*": "Array.materials[query.is_invisible]"
+        }
+      ],
+      "textures": [
+        "query.skin_id==15?Texture.sansmode_ult:(query.skin_id==16?Texture.sansmode_dust_ult:(query.skin_id==17?(math.mod(query.life_time*20,10)<5?Texture.sansmode_lb_ult_static:Texture.sansmode_lb_ult_black):(query.skin_id==72?Texture.sansmode_killer_ult:(query.skin_id==101?Texture.sansmode_gaster_ult:(query.skin_id==110?Texture.sansmode_error:(query.skin_id==111?Texture.sansmode_error_sleep:(query.skin_id==112?Texture.sansmode_error_dead:(query.skin_id==70?Texture.sansmode_killer:(query.skin_id==71?Texture.sansmode_killer_sleep:((query.skin_id==12||(query.skin_id>=20&&query.skin_id<=64))?Texture.sansmode_nightmare:(query.skin_id==14?Texture.sansmode_nightmare_sleep:(query.skin_id==13?Texture.sansmode_puddle:(query.skin_id==1?Texture.sansmode_trial:(query.skin_id==2?Texture.sansmode_sleep:(query.skin_id==3?Texture.sansmode_dead:(query.skin_id==4?Texture.null:(query.skin_id==100?Texture.sansmode_gaster:(query.skin_id==5?Texture.sansmode_horror:(query.skin_id==6?Texture.sansmode_horror_sleep:(query.skin_id==7?Texture.sansmode_horror_dead:(query.skin_id==8?Texture.sansmode_dust:(query.skin_id==9?Texture.sansmode_dust_trial:(query.skin_id==10?Texture.sansmode_dust_sleep:(query.skin_id==11?Texture.sansmode_dust_dead:Texture.sansmode))))))))))))))))))))))))"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "hood": "(query.skin_id>=8&&query.skin_id<=11)||(query.skin_id>=93&&query.skin_id<=96)"
+        },
+        {
+          "sweat": "query.variant==300||query.variant==500||query.variant==700||query.variant==800||query.variant==900"
+        }
+      ]
+    },
+    "controller.render.player.first_person": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.sansmode",
+            "Material.sansmode2"
+          ]
+        }
+      },
+      "geometry": "(query.skin_id==72?Geometry.killer:(query.skin_id==101?Geometry.gaster:((query.skin_id==70||query.skin_id==71)?Geometry.killer:(query.skin_id==12||query.skin_id==14||(query.skin_id>=20&&query.skin_id<=64))?Geometry.nightmare:(query.skin_id==13?Geometry.puddle:(query.variant>=300?Geometry.sansmode:Geometry.default)))))",
+      "materials": [
+        {
+          "*": "query.variant>=300?Array.materials[query.is_invisible]:Material.default"
+        }
+      ],
+      "textures": [
+        "query.skin_id==15?Texture.sansmode_ult:(query.skin_id==16?Texture.sansmode_dust_ult:(query.skin_id==17?(math.mod(query.life_time*20,10)<5?Texture.sansmode_lb_ult_static:Texture.sansmode_lb_ult_black):(query.skin_id==72?Texture.sansmode_killer_ult:(query.skin_id==101?Texture.sansmode_gaster_ult:(query.skin_id==110?Texture.sansmode_error:(query.skin_id==111?Texture.sansmode_error_sleep:(query.skin_id==112?Texture.sansmode_error_dead:(query.skin_id==70?Texture.sansmode_killer:(query.skin_id==71?Texture.sansmode_killer_sleep:((query.skin_id==12||(query.skin_id>=20&&query.skin_id<=64))?Texture.sansmode_nightmare:(query.skin_id==14?Texture.sansmode_nightmare_sleep:query.skin_id==13?Texture.sansmode_puddle:(query.variant>=300?(query.skin_id==1?Texture.sansmode_trial:(query.skin_id==2?Texture.sansmode_sleep:(query.skin_id==3?Texture.sansmode_dead:(query.skin_id==4?Texture.null:(query.skin_id==100?Texture.null:(query.skin_id==5?Texture.sansmode_horror:(query.skin_id==6?Texture.sansmode_horror_sleep:(query.skin_id==7?Texture.sansmode_horror_dead:(query.skin_id==8?Texture.sansmode_dust:(query.skin_id==9?Texture.sansmode_dust_trial:(query.skin_id==10?Texture.sansmode_dust_sleep:(query.skin_id==11?Texture.sansmode_dust_dead:(query.skin_id==80?Texture.sansmode_lastbreath:(query.skin_id==81?Texture.sansmode_lastbreath_t1:(query.skin_id==82?Texture.sansmode_lastbreath_t2:(query.skin_id==83?Texture.sansmode_lastbreath_t3:(query.skin_id==84?Texture.sansmode_lastbreath_t4:(query.skin_id==85?Texture.sansmode_lastbreath_t5:(query.skin_id==86?Texture.sansmode_lastbreath_dead:(query.skin_id==87?Texture.sansmode_lastbreath_sleep:Texture.sansmode)))))))))))))))))))):Texture.default))))))))))))"
+      ],
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "rightArm2": "(query.skin_id!=100)&&(query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map')"
+        },
+        {
+          "righthand": "(query.skin_id!=100)&&(query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map')"
+        },
+        {
+          "righthand2": "(query.skin_id!=100)&&(query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map')"
+        },
+        {
+          "rightArm": "(query.skin_id!=100)&&(query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map')"
+        },
+        {
+          "rightSleeve": "(query.skin_id!=100)&&(query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map')"
+        },
+        {
+          "leftArm": "(query.skin_id!=100)&&((query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)))"
+        },
+        {
+          "leftSleeve": "(query.skin_id!=100)&&((query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)))"
+        },
+        {
+          "rf0": "variable.nm_mode>0"
+        },
+        {
+          "rf1": "variable.nm_mode==2"
+        },
+        {
+          "rf2": "variable.nm_mode==2"
+        },
+        {
+          "rf3": "variable.nm_mode==2"
+        },
+        {
+          "rf4": "variable.nm_mode==2"
+        },
+        {
+          "rf5": "variable.nm_mode==2"
+        }
+      ]
+    },
+    "controller.render.player.third_person": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "query.variant>=300?Texture.null:Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "head": "query.variant<300"
+        },
+        {
+          "hat": "query.variant<300"
+        },
+        {
+          "helmet": "variable.helmet_layer_visible"
+        },
+        {
+          "leftLegging": "variable.leg_layer_visible"
+        },
+        {
+          "rightLegging": "variable.leg_layer_visible"
+        },
+        {
+          "leftBoot": "variable.boot_layer_visible"
+        },
+        {
+          "rightBoot": "variable.boot_layer_visible"
+        },
+        {
+          "leftSock": "variable.boot_layer_visible && variable.leg_layer_visible"
+        },
+        {
+          "rightSock": "variable.boot_layer_visible && variable.leg_layer_visible"
+        },
+        {
+          "bodyArmor": "variable.chest_layer_visible && !query.has_cape"
+        },
+        {
+          "leftArmArmor": "variable.chest_layer_visible && !query.has_cape"
+        },
+        {
+          "rightArmArmor": "variable.chest_layer_visible && !query.has_cape"
+        },
+        {
+          "belt": "variable.chest_layer_visible && variable.leg_layer_visible"
+        }
+      ]
+    },
+    "controller.render.player.map": {
+      "arrays": {
+        "materials": {
+          "Array.materials": [
+            "Material.sansmode",
+            "Material.sansmode2"
+          ]
+        }
+      },
+      "geometry": "(query.skin_id==72?Geometry.killer:(query.skin_id==101?Geometry.gaster:((query.skin_id==70||query.skin_id==71)?Geometry.killer:(query.skin_id==12||query.skin_id==14||(query.skin_id>=20&&query.skin_id<=64))?Geometry.nightmare:(query.skin_id==13?Geometry.puddle:(query.variant>=300?Geometry.sansmode:Geometry.default)))))",
+      "materials": [
+        {
+          "*": "query.variant>=300?Array.materials[query.is_invisible]:Material.default"
+        }
+      ],
+      "textures": [
+        "query.skin_id==15?Texture.sansmode_ult:(query.skin_id==16?Texture.sansmode_dust_ult:(query.skin_id==17?(math.mod(query.life_time*20,10)<5?Texture.sansmode_lb_ult_static:Texture.sansmode_lb_ult_black):(query.skin_id==72?Texture.sansmode_killer_ult:(query.skin_id==101?Texture.sansmode_gaster_ult:(query.skin_id==110?Texture.sansmode_error:(query.skin_id==111?Texture.sansmode_error_sleep:(query.skin_id==112?Texture.sansmode_error_dead:(query.skin_id==70?Texture.sansmode_killer:(query.skin_id==71?Texture.sansmode_killer_sleep:((query.skin_id==12||(query.skin_id>=20&&query.skin_id<=64))?Texture.sansmode_nightmare:(query.skin_id==14?Texture.sansmode_nightmare_sleep:query.skin_id==13?Texture.sansmode_puddle:(query.variant>=300?(query.skin_id==1?Texture.sansmode_trial:(query.skin_id==2?Texture.sansmode_sleep:(query.skin_id==3?Texture.sansmode_dead:(query.skin_id==4?Texture.null:(query.skin_id==100?Texture.sansmode_gaster:(query.skin_id==5?Texture.sansmode_horror:(query.skin_id==6?Texture.sansmode_horror_sleep:(query.skin_id==7?Texture.sansmode_horror_dead:(query.skin_id==8?Texture.sansmode_dust:(query.skin_id==9?Texture.sansmode_dust_trial:(query.skin_id==10?Texture.sansmode_dust_sleep:(query.skin_id==11?Texture.sansmode_dust_dead:(query.skin_id==80?Texture.sansmode_lastbreath:(query.skin_id==81?Texture.sansmode_lastbreath_t1:(query.skin_id==82?Texture.sansmode_lastbreath_t2:(query.skin_id==83?Texture.sansmode_lastbreath_t3:(query.skin_id==84?Texture.sansmode_lastbreath_t4:(query.skin_id==85?Texture.sansmode_lastbreath_t5:(query.skin_id==86?Texture.sansmode_lastbreath_dead:(query.skin_id==87?Texture.sansmode_lastbreath_sleep:Texture.sansmode)))))))))))))))))))):Texture.default))))))))))))"
+      ],
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "head": true
+        },
+        {
+          "hat": true
+        },
+        {
+          "helmet": true
+        }
+      ]
+    }
+  }
+}

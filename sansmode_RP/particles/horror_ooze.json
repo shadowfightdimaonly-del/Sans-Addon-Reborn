@@ -1,0 +1,58 @@
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "horrorsans:ooze",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/horror_ooze"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 2
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.9
+      },
+      "minecraft:particle_initial_speed": 0.4,
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          -9,
+          0
+        ],
+        "linear_drag_coefficient": 0.2
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          "0.06",
+          "0.09"
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      },
+      "minecraft:emitter_shape_point": {
+        "direction": [
+          0,
+          -1,
+          0
+        ]
+      }
+    }
+  }
+}

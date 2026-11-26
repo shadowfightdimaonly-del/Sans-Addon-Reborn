@@ -1,0 +1,84 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "playersans:control",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "runtime_identifier": "playersans:control"
+    },
+    "components": {
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:behavior.knockback_roar": {
+        "priority": 1,
+        "duration": 0.1,
+        "attack_time": 0.1,
+        "knockback_damage": 6,
+        "knockback_strength": 10,
+        "knockback_range": 7,
+        "knockback_filters": {
+          "test": "has_tag",
+          "subject": "other",
+          "operator": "!=",
+          "value": "sans"
+        },
+        "damage_filters": {
+          "test": "has_tag",
+          "subject": "other",
+          "operator": "!=",
+          "value": "sans"
+        },
+        "cooldown_time": 5
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:movement": {
+        "value": 0
+      },
+      "minecraft:collision_box": {
+        "width": 0.0,
+        "height": 0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 0,
+        "look_distance": 6.0,
+        "probability": 0.02
+      },
+      "minecraft:nameable": {},
+      "minecraft:timer": {
+        "time": [
+          0.7,
+          0.7
+        ],
+        "looping": false,
+        "time_down_event": {
+          "event": "playersans:despawn",
+          "target": "self"
+        }
+      }
+    },
+    "component_groups": {
+      "playersans:despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "events": {
+      "playersans:despawn": {
+        "add": {
+          "component_groups": [
+            "playersans:despawn"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.psanstrialte2": {
+   "timeline": {
+    "0": "/execute as @e[rm=1.2,r=14,type=!item,type=!playersans:d_gb,type=!playersans:d_gb_right,type=!playersans:d_gb_top,type=!playersans:d_gbx,type=!sans:pbone,type=!playersans:control] at @s run spreadplayers ~ ~ 3 4 @s"
+   },
+   "loop": true,
+   "animation_length": 3
+  },
+  "animation.psanstrialte": {
+   "timeline": {
+    "0": "/title @a[r=50] title §l*",
+    "0.1": [
+     "/stopsound @a[r=60] h2v.player.sans.trial",
+     "/title @a[r=50] times 0 3 0"
+    ],
+    "0.2": "/title @a[r=50] title §l* it's",
+    "0.4": "/title @a[r=50] title §l* it's a",
+    "0.6": "/title @a[r=50] title §l* it's a beautiful",
+    "0.8": "/title @a[r=50] title §l* it's a beautiful day",
+    "1.0": "/title @a[r=50] title §l* it's a beautiful day outside.",
+    "1.5": "/title @a[r=50] title §l* birds",
+    "1.7": "/title @a[r=50] title §l* birds are",
+    "1.9": "/title @a[r=50] title §l* birds are singing,",
+    "2.3": "/title @a[r=50] title §l* flowers",
+    "2.5": "/title @a[r=50] title §l* flowers are",
+    "2.7": "/title @a[r=50] title §l* flowers are blooming...",
+    "3.0": "/title @a[r=50] title §l* on",
+    "3.1": "/title @a[r=50] title §l* on days",
+    "3.2": "/title @a[r=50] title §l* on days like",
+    "3.3": "/title @a[r=50] title §l* on days like these,",
+    "3.4": "/title @a[r=50] title §l* on days like these, kids",
+    "3.5": "/title @a[r=50] title §l* on days like these, kids like",
+    "3.6": "/title @a[r=50] title §l* on days like these, kids like you...",
+    "4": [
+     "/execute as @a[r=50] at @s run playsound h2v.player.sans.trial @s ~ ~ ~",
+     "/title @a[r=70] reset"
+    ]
+   },
+   "loop": false,
+   "animation_length": 4.2
+  }
+ }
+}

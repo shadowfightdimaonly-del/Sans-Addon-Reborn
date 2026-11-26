@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "gasterbones:hand",
+      "materials": {
+        "default": "entity_alphatest",
+        "invisible": "entity_alphatest"
+      },
+      "textures": {
+        "default": "gaster_hand_proj"
+      },
+      "geometry": {
+        "default": "geometry.gaster_hand"
+      },
+      "render_controllers": [
+        "controller.render.psans"
+      ],
+      "enable_attachables": false
+    }
+  }
+}

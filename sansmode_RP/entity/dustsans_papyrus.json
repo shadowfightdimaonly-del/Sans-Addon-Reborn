@@ -1,0 +1,28 @@
+{
+ "format_version": "1.10.0",
+ "minecraft:client_entity": {
+  "description": {
+   "identifier": "dustsans:papyrus",
+   "materials": {
+    "default": "entity_alphablend"
+   },
+   "textures": {
+    "default": "dpapyrus"
+   },
+   "geometry": {
+    "default": "geometry.dust_papyrus"
+   },
+   "animations": {
+    "idle": "animation.dust_papyrus.idle"
+   },
+   "scripts": {
+    "animate": [
+     "idle"
+    ]
+   },
+   "render_controllers": [
+    "controller.render.dust_papyrus"
+   ]
+  }
+ }
+}

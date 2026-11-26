@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "sans:ketchup_bottle"
+    },
+    "components": {
+      "minecraft:max_stack_size": 16,
+      "minecraft:hand_equipped": false,
+      "minecraft:use_duration": 91632,
+      "minecraft:food": {
+        "nutrition": 0,
+        "can_always_eat": true
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "sans:ketchup_bottle",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:icon": "sans_ketchup_bottle",
+      "minecraft:hover_text_color": "red"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "sansmode:red_knife",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": 9999,
+      "minecraft:icon": "red_knife",
+      "minecraft:display_name": {
+        "value": "§cКрасный нож"
+      }
+    }
+  }
+}

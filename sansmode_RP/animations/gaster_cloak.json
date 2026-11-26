@@ -1,0 +1,22 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.gaster_cloak": {
+      "loop": true,
+      "bones": {
+        "cloak": {
+          "rotation": [
+            "Math.min(query.modified_move_speed,1.3)*15+Math.sin(query.modified_distance_moved*45)*2.5*Math.min(query.modified_move_speed,1.3)",
+            0,
+            "Math.cos(query.modified_distance_moved*30)*3.5*Math.min(query.modified_move_speed,1.3)"
+          ],
+          "position": [
+            0,
+            "Math.min(query.modified_move_speed,1.3)*1.0",
+            "Math.min(query.modified_move_speed,1.3)*1.6"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.horror_thrown_axe.spin": {
+      "loop": true,
+      "animation_length": 0.2,
+      "bones": {
+        "root": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.2": [
+              0,
+              360,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

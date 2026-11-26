@@ -1,0 +1,98 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "sansmode:snowdin_blast",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "runtime_identifier": "minecraft:snowball"
+    },
+    "component_groups": {
+      "m": {
+        "minecraft:scale": {
+          "value": 10
+        },
+        "minecraft:projectile": {
+          "particle": "explode",
+          "onHit": {
+            "mob_effect": {
+              "effect": "levitation",
+              "durationeasy": 42,
+              "durationnormal": 42,
+              "durationhard": 42,
+              "amplifier": 10
+            },
+            "impact_damage": {
+              "damage": 100,
+              "knockback": false
+            }
+          },
+          "power": 3.5,
+          "catchFire": true,
+          "offset": [
+            0,
+            1.45,
+            0
+          ],
+          "gravity": 0.0,
+          "uncertaintyBase": 0
+        }
+      }
+    },
+    "components": {
+      "minecraft:health": {
+        "value": 20,
+        "min": 20,
+        "max": 20
+      },
+      "minecraft:explode": {
+        "fuseLength": 0.6,
+        "fuseLit": true,
+        "power": 0,
+        "causesFire": true,
+        "fireAffectedByGriefing": true,
+        "destroyAffectedByGriefing": true
+      },
+      "minecraft:collision_box": {
+        "width": 0.5,
+        "height": 0.01
+      },
+      "minecraft:projectile": {
+        "particle": "explode",
+        "onHit": {
+          "impact_damage": {
+            "damage": 3,
+            "knockback": true
+          }
+        },
+        "power": 7,
+        "catchFire": true,
+        "offset": [
+          0,
+          1.0,
+          1
+        ],
+        "gravity": 0.0,
+        "uncertaintyBase": 0
+      }
+    },
+    "event": {
+      "m": {
+        "randomize": [
+          {
+            "weight": 15
+          },
+          {
+            "weight": 1,
+            "add": {
+              "component_groups": [
+                "m"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

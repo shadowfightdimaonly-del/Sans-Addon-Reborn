@@ -1,0 +1,22 @@
+{
+ "format_version": "1.10.0",
+ "minecraft:attachable": {
+  "description": {
+   "identifier": "playersans:trial_time",
+   "materials": {
+    "default": "entity_alphatest",
+    "enchanted": "entity_alphatest"
+   },
+   "textures": {
+    "default": "sans_blank",
+    "enchanted": "sans_blank"
+   },
+   "geometry": {
+    "default": "geometry.sans_nothing"
+   },
+   "render_controllers": [
+    "controller.render.item_default"
+   ]
+  }
+ }
+}

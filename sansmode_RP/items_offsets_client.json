@@ -1,0 +1,9 @@
+{
+  "render_offsets": {
+       "psansbone": {
+      "VR_hand_controller_position_adjust": [ 0.0, -0.60, -0.2 ],
+      "VR_hand_controller_rotation_adjust": [ 0.0, 1.0, 0.0 ],
+      "VR_hand_controller_scale": 0.8
+    }
+ }
+}
