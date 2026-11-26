@@ -1,0 +1,62 @@
+name: Build Sans Addon Reborn
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sansmode_BP/**"
+      - "sansmode_RP/**"
+      - ".github/workflows/build-addon.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Minecraft addon package
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZIP_DEFLATED, ZipFile
+
+          root = Path.cwd()
+          output = root / "dist"
+          output.mkdir(exist_ok=True)
+
+          packs = [
+              ("sansmode_BP", "Sans_Addon_Reborn_BP.mcpack"),
+              ("sansmode_RP", "Sans_Addon_Reborn_RP.mcpack"),
+          ]
+
+          for folder_name, pack_name in packs:
+              folder = root / folder_name
+              if not (folder / "manifest.json").is_file():
+                  raise SystemExit(f"Missing manifest: {folder_name}/manifest.json")
+              pack_path = output / pack_name
+              with ZipFile(pack_path, "w", ZIP_DEFLATED) as archive:
+                  for file in sorted(folder.rglob("*")):
+                      if file.is_file():
+                          archive.write(file, file.relative_to(folder).as_posix())
+
+          addon_path = output / "Sans_Addon_Reborn.mcaddon"
+          with ZipFile(addon_path, "w", ZIP_DEFLATED) as addon:
+              for _, pack_name in packs:
+                  file = output / pack_name
+                  addon.write(file, file.name)
+
+          print(f"Built {addon_path}")
+          PY
+
+      - name: Upload installable addon
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sans-Addon-Reborn
+          path: dist/Sans_Addon_Reborn.mcaddon
+          if-no-files-found: error
+          retention-days: 30
