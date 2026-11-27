@@ -140,6 +140,7 @@ function startFight(st,p) {
   giveSilverKnife(p);
   say(st,"papyrus.snowdin.fight_start");
   st.nextAttack=system.currentTick+35;
+  st.nextFreeze=system.currentTick+240;
   snd(st.dim,"mob.wither.spawn",st.boss.location,1,1.1);
   fx(st.dim,"minecraft:totem_particle",center(st.boss));
 }
@@ -232,14 +233,17 @@ function attackCross(st,p) {
   }
   say(st,"papyrus.snowdin.attack_cross");
 }
-const ATTACKS=[attackFan,attackRow,attackThrow,attackSpikes,attackBlueSoul,attackRing,attackCage,attackRain,attackCross];
+function attackFlying(st,p) {
+  const a=rand(0,Math.PI*2), r=rand(6,8);
+  const from={x:p.location.x+Math.cos(a)*r,y:p.location.y+1.5,z:p.location.z+Math.sin(a)*r};
+  spawnBone(st.boss,p,{from,speed:3.2});
+  say(st,"papyrus.snowdin.attack_fly");
+}
+const ATTACKS=[attackFan,attackRow,attackThrow,attackSpikes,attackBlueSoul,attackRing,attackCage,attackRain,attackCross,attackFlying];
 function teleportAfterAttack(st,p) {
   if (!valid(st.boss)||!valid(p)) return;
-  const dx=st.boss.location.x-p.location.x;
-  const dz=st.boss.location.z-p.location.z;
-  const length=Math.hypot(dx,dz)||1;
-  const dir=length===1&&dx===0&&dz===0?{x:1,z:0}:{x:dx/length,z:dz/length};
-  safe(()=>st.boss.teleport({x:p.location.x+dir.x*10,y:p.location.y,z:p.location.z+dir.z*10},{dimension:st.dim,checkForBlocks:true}));
+  const v=p.getViewDirection(), l=Math.hypot(v.x,v.z)||1;
+  safe(()=>st.boss.teleport({x:p.location.x-(v.x/l)*10,y:p.location.y,z:p.location.z-(v.z/l)*10},{dimension:st.dim,checkForBlocks:true}));
 }
 function tickFight(st,t) {
   if(!valid(st.boss)){clearPuzzle(st);states.delete(st.id);return;}
@@ -248,6 +252,11 @@ function tickFight(st,t) {
     st.target=nearby[0];
   }
   if(!st.target)return;
+  if(t>=(st.nextFreeze||0)){
+    st.nextFreeze=t+240;
+    safe(()=>st.target.addEffect("slowness",50,{amplifier:255,showParticles:false}));
+    msg(st.target,"papyrus.snowdin.freeze");
+  }
   if(t>=st.nextAttack){
     const attack=ATTACKS[Math.floor(Math.random()*ATTACKS.length)];
     attack(st,st.target);
