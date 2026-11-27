@@ -9,8 +9,8 @@
         "t": "psans"
       },
       "textures": {
-        "default": "gaster_blaster_tex",
-        "t": "gaster_PGBP0"
+        "default": "textures/entity/gaster_blaster_tex",
+        "t": "textures/entity/gaster_PGBP0"
       },
       "geometry": {
         "default": "geometry.gaster_pcraw_top",

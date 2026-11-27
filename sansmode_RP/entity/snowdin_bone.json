@@ -8,7 +8,7 @@
         "invisible": "psans2"
       },
       "textures": {
-        "default": "pbone"
+        "default": "textures/entity/pbone"
       },
       "geometry": {
         "default": "geometry.psansbone"

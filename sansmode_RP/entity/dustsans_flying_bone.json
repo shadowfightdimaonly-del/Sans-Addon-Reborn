@@ -8,9 +8,9 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "dbone_spike",
-        "red": "dbone_spike_red",
-        "blue": "dbone_spike_blue"
+        "default": "textures/entity/dbone_spike",
+        "red": "textures/entity/dbone_spike_red",
+        "blue": "textures/entity/dbone_spike_blue"
       },
       "geometry": {
         "default": "geometry.sans_flying_bone"

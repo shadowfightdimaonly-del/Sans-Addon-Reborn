@@ -1,22 +1,22 @@
 {
- "format_version": "1.10.0",
- "minecraft:client_entity": {
-  "description": {
-   "identifier": "errorbones:flying_bone",
-   "materials": {
-    "default": "entity_alphatest",
-    "invisible": "entity_alphatest"
-   },
-   "textures": {
-    "default": "errorbone_spike"
-   },
-   "geometry": {
-    "default": "geometry.sans_flying_bone"
-   },
-   "render_controllers": [
-    "controller.render.psans"
-   ],
-   "enable_attachables": false
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "errorbones:flying_bone",
+      "materials": {
+        "default": "entity_alphatest",
+        "invisible": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/errorbone_spike"
+      },
+      "geometry": {
+        "default": "geometry.sans_flying_bone"
+      },
+      "render_controllers": [
+        "controller.render.psans"
+      ],
+      "enable_attachables": false
+    }
   }
- }
 }

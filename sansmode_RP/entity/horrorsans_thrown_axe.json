@@ -8,7 +8,7 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "horrorsans_thrown_axe"
+        "default": "textures/entity/horrorsans_thrown_axe"
       },
       "geometry": {
         "default": "geometry.horror_thrown_axe"

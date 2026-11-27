@@ -8,7 +8,7 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "ntentacle"
+        "default": "textures/entity/ntentacle"
       },
       "geometry": {
         "default": "geometry.sans_flying_bone"

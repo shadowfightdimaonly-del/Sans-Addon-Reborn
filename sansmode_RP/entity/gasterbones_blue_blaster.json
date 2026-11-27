@@ -9,8 +9,8 @@
         "t": "psans"
       },
       "textures": {
-        "default": "gs_blaster_blue",
-        "t": "gs_beam_blue"
+        "default": "textures/entity/gs_blaster_blue",
+        "t": "textures/entity/gs_beam_blue"
       },
       "geometry": {
         "default": "geometry.gaster_pcraw_top",

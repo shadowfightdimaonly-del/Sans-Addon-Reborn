@@ -8,8 +8,8 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "horrorsans_spike",
-        "blue": "bone_spike_blue"
+        "default": "textures/entity/horrorsans_spike",
+        "blue": "textures/entity/bone_spike_blue"
       },
       "geometry": {
         "default": "geometry.sans_bone_spike"

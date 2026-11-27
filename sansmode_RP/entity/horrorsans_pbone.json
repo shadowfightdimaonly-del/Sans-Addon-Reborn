@@ -8,23 +8,26 @@
         "invisible": "psans2"
       },
       "textures": {
-        "default": "horrorsans_pbone"
+        "default": "textures/entity/horrorsans_pbone"
       },
       "geometry": {
         "default": "geometry.psansbone"
       },
-        "spawn_egg": {
+      "spawn_egg": {
         "texture": "psans:face",
         "texture_index": 0
       },
-         "animation_controllers": [
-        { "psans": "controller.animation.psans" }
+      "animation_controllers": [
+        {
+          "psans": "controller.animation.psans"
+        }
       ],
-
       "animations": {
-       "pbone": "animation.pbone"
+        "pbone": "animation.pbone"
       },
-      "render_controllers": [ "controller.render.psans" ],
+      "render_controllers": [
+        "controller.render.psans"
+      ],
       "enable_attachables": true
     }
   }

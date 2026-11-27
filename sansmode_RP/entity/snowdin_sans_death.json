@@ -3,12 +3,26 @@
   "minecraft:client_entity": {
     "description": {
       "identifier": "sansmode:snowdin_sans_death",
-      "materials": { "default": "psans" },
-      "textures": { "default": "psans" },
-      "geometry": { "default": "geometry.sans_v3" },
-      "animations": { "death": "animation.snowdin_sans.death" },
-      "scripts": { "animate": ["death"] },
-      "render_controllers": ["controller.render.snowdin_sans_death"]
+      "materials": {
+        "default": "psans"
+      },
+      "textures": {
+        "default": "textures/entity/psans"
+      },
+      "geometry": {
+        "default": "geometry.sans_v3"
+      },
+      "animations": {
+        "death": "animation.snowdin_sans.death"
+      },
+      "scripts": {
+        "animate": [
+          "death"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.snowdin_sans_death"
+      ]
     }
   }
 }

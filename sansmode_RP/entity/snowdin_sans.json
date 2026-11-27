@@ -7,10 +7,10 @@
         "default": "psans"
       },
       "textures": {
-        "calm": "psans",
-        "cold": "psans_cold",
-        "blue": "psans_trial",
-        "sleep": "psans_sleep"
+        "calm": "textures/entity/psans",
+        "cold": "textures/entity/psans_cold",
+        "blue": "textures/entity/psans_trial",
+        "sleep": "textures/entity/psans_sleep"
       },
       "geometry": {
         "default": "geometry.sans_v3"

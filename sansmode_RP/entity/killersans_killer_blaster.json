@@ -9,8 +9,8 @@
         "t": "pgb"
       },
       "textures": {
-        "default": "killer_blaster_skin",
-        "t": "kPGBP0"
+        "default": "textures/entity/killer_blaster_skin",
+        "t": "textures/entity/kPGBP0"
       },
       "geometry": {
         "default": "geometry.pcraw_top",

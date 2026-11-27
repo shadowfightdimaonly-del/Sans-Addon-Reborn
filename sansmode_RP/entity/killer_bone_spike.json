@@ -8,7 +8,7 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "killer_bone_spike"
+        "default": "textures/entity/killer_bone_spike"
       },
       "geometry": {
         "default": "geometry.sans_bone_spike"

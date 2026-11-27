@@ -7,7 +7,7 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "pbone"
+        "default": "textures/entity/pbone"
       },
       "geometry": {
         "default": "geometry.psansbone"

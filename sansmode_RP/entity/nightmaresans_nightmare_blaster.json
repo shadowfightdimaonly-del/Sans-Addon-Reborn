@@ -9,8 +9,8 @@
         "t": "pgb"
       },
       "textures": {
-        "default": "nightmare_blaster_skin",
-        "t": "nPGBP0"
+        "default": "textures/entity/nightmare_blaster_skin",
+        "t": "textures/entity/nPGBP0"
       },
       "geometry": {
         "default": "geometry.pcraw_top",

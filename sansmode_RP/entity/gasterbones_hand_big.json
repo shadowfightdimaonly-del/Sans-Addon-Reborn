@@ -8,7 +8,7 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "gaster_hand_proj"
+        "default": "textures/entity/gaster_hand_proj"
       },
       "geometry": {
         "default": "geometry.gaster_hand"

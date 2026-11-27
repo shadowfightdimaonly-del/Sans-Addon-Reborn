@@ -9,8 +9,8 @@
         "t": "pgb"
       },
       "textures": {
-        "default": "dpsans",
-        "t": "dPGBP0"
+        "default": "textures/entity/dpsans",
+        "t": "textures/entity/dPGBP0"
       },
       "geometry": {
         "default": "geometry.pcraw_top",

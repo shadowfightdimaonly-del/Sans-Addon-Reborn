@@ -8,7 +8,7 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "killer_grey_bone"
+        "default": "textures/entity/killer_grey_bone"
       },
       "geometry": {
         "default": "geometry.sans_flying_bone"

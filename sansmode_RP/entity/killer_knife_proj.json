@@ -8,7 +8,7 @@
         "invisible": "entity_alphatest"
       },
       "textures": {
-        "default": "killer_knife_proj"
+        "default": "textures/entity/killer_knife_proj"
       },
       "geometry": {
         "default": "geometry.killer_knife_proj"

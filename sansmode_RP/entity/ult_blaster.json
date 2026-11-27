@@ -9,8 +9,8 @@
         "t": "pgb"
       },
       "textures": {
-        "default": "psans_blaster",
-        "t": "PGBP0"
+        "default": "textures/entity/psans_blaster",
+        "t": "textures/entity/PGBP0"
       },
       "geometry": {
         "default": "geometry.pcraw_top",
