@@ -36,6 +36,7 @@ const FLY_HOVER = 14;             // тиков, пока кость «цели�
 const FLY_SPEED = 0.5;            // блоков за тик (средняя скорость)
 const FLY_MAX = 6;
 
+const DODGE_ATTACK_UNLOCK = 40;   // две дополнительные атаки открываются после 40 уворотов
 const DODGES_NEEDED = 80;         // уворотов до усталости
 const SLEEP_AT = 79;              // на этом уворте Санс может уснуть
 const SLEEP_CHANCE = 0.5;
@@ -263,7 +264,7 @@ function liftAndBoneTrap(s, p) {
   if (!ok(s) || !ok(p)) return;
   const dim = s.dimension;
   const start = { x: p.location.x, y: p.location.y, z: p.location.z };
-  // Импульс подбрасывает игрока примерно на 10 блоков; шипы появляются у точки взлёта.
+  // Подброс примерно на 10 блоков, затем резкий переход к падению.
   safe(() => p.applyImpulse({ x: 0, y: 1.35, z: 0 }));
   snd(dim, "mob.enderdragon.flap", start, 1, 0.8);
   fx(dim, "minecraft:totem_particle", { x: start.x, y: start.y + 0.2, z: start.z });
@@ -277,13 +278,20 @@ function liftAndBoneTrap(s, p) {
     system.runTimeout(() => {
       if (!ok(s) || spikes.length > 24) return;
       const ent = safe(() => dim.spawnEntity("playersans:bone_spike", { x, y, z }));
-      if (ent) spikes.push({ ent, dim, x, y, z, born: system.currentTick, hit: new Set(), owner: s });
+      if (ent) spikes.push({
+        ent, dim, x, y, z, born: system.currentTick, hit: new Set(), owner: s,
+        life: 64, activeFrom: 2, activeTo: 58
+      });
     }, 14);
   }
-  // Даём игроку время увернуться и затем смягчаем приземление.
+  // На вершине траектории резко отправляем цель вниз.
   system.runTimeout(() => {
-    if (ok(p)) safe(() => p.addEffect("slow_falling", 100, { amplifier: 0, showParticles: false }));
-  }, 30);
+    if (ok(p)) safe(() => p.applyImpulse({ x: 0, y: -1.35, z: 0 }));
+  }, 23);
+  // Непосредственно перед приземлением замедляем падение: эффект предотвращает урон от падения.
+  system.runTimeout(() => {
+    if (ok(p)) safe(() => p.addEffect("slow_falling", 35, { amplifier: 0, showParticles: false }));
+  }, 29);
 }
 
 // Обычная атака бластером: d_gb сам ищет цель с тегом pst, сам стреляет и самонаводится (так задумано).
@@ -407,8 +415,8 @@ function spikeWave(s, p) {
 function tickSpikes(t) {
   for (let i = spikes.length - 1; i >= 0; i--) {
     const sp = spikes[i], age = t - sp.born;
-    if (!ok(sp.ent) || age >= 24) { safe(() => sp.ent.remove()); spikes.splice(i, 1); continue; }
-    if (age < 2 || age > 12) continue;
+    if (!ok(sp.ent) || age >= (sp.life ?? 24)) { safe(() => sp.ent.remove()); spikes.splice(i, 1); continue; }
+    if (age < (sp.activeFrom ?? 2) || age > (sp.activeTo ?? 12)) continue;
     for (const pl of safe(() => sp.dim.getPlayers({ location: { x: sp.x, y: sp.y, z: sp.z }, maxDistance: 3 })) || []) {
       if (sp.hit.has(pl.id)) continue;
       const l = pl.location;
@@ -554,6 +562,56 @@ function tickUlts(t) {
 }
 
 // ---- мозг Санса ----
+// Средняя атака: кольцо костяных шипов с коротким предупреждением и последовательным появлением.
+function dodgeBoneRing(s, p) {
+  const dim = s.dimension, center = p.location, count = 8, radius = 3.6;
+  const bornAt = system.currentTick;
+  say(p, 3, "Кости повсюду. Посмотрим, куда ты побежишь.");
+  snd(dim, "mob.wither.shoot", center, 0.9, 1.25);
+  for (let i = 0; i < count; i++) {
+    const a = (i / count) * Math.PI * 2;
+    const x = center.x + Math.cos(a) * radius;
+    const z = center.z + Math.sin(a) * radius;
+    const y = groundY(dim, x, center.y, z);
+    for (let k = 0; k < 4; k++) {
+      const t = bornAt + 12 + i * 2 + k * 3;
+      system.runTimeout(() => fx(dim, "minecraft:villager_angry", { x, y: y + 0.1, z }), Math.max(1, t - system.currentTick));
+    }
+    system.runTimeout(() => {
+      if (!ok(s) || spikes.length >= 40) return;
+      const ent = safe(() => dim.spawnEntity("playersans:bone_spike", { x, y, z }));
+      if (ent) spikes.push({
+        ent, dim, x, y, z, born: system.currentTick, hit: new Set(), owner: s,
+        life: 52, activeFrom: 2, activeTo: 46
+      });
+      snd(dim, "dig.stone", { x, y, z }, 0.75, 1.15);
+    }, 12 + i * 2);
+  }
+}
+
+// Сложная атака: шесть бластеров окружают цель и стреляют веером с небольшими интервалами.
+function dodgeSixBlasters(s, p) {
+  const dim = s.dimension, t = system.currentTick;
+  const tc = { x: p.location.x, y: p.location.y + 0.9, z: p.location.z };
+  const base = rand(0, Math.PI * 2);
+  const attackId = "dodge40:" + s.id + ":" + t;
+  say(p, 3, "Не успеешь увернуться от всех.");
+  snd(dim, "mob.wither.spawn", tc, 0.9, 1.35);
+  for (let k = 0; k < 6; k++) {
+    const ang = base + (k * Math.PI) / 3;
+    const pos = { x: tc.x + Math.cos(ang) * 8.5, y: tc.y + (k % 2 ? 1.4 : 0.7), z: tc.z + Math.sin(ang) * 8.5 };
+    const ent = safe(() => dim.spawnEntity("playersans:ult_blaster", pos));
+    if (!ent) continue;
+    safe(() => ent.teleport(pos, { facingLocation: tc }));
+    snd(dim, "mob.endermen.portal", pos, 0.55, 0.8 + k * 0.04);
+    crossBlasters.push({
+      ent, dim, pos, ang, p, s, tc: { ...tc }, ult: attackId,
+      lockAt: t + 12 + k * 3, fireAt: t + 27 + k * 3,
+      endAt: 0, state: "orbit", dir: null, hit: false
+    });
+  }
+}
+
 function tickSans(s) {
   const t = system.currentTick;
   const st = stateOf(s);
@@ -581,6 +639,14 @@ function tickSans(s) {
     if (dist <= ATTACK_RANGE && t >= st.atkAt) {
       st.atkAt = t + ATTACK_COOLDOWN;
       if (st.ultCount < 5 && st.dodges >= 50 && Math.random() < ULT.CHANCE && t >= (st.ultAt || 0)) { startUlt(s, p); return; }
+      // После 40 успешных уворотов Санс начинает чередовать две новые атаки.
+      if (st.dodges >= DODGE_ATTACK_UNLOCK && t >= (st.specialAt || 0) && Math.random() < 0.4) {
+        st.specialAt = t + 100;
+        st.specialCount = (st.specialCount || 0) + 1;
+        if (st.specialCount % 2 === 1) dodgeBoneRing(s, p);
+        else dodgeSixBlasters(s, p);
+        return;
+      }
       const r = Math.random();
       if (r < P_BONE) throwBone(s, p);
       else if (r < P_BONE + P_BLASTER) fireBlaster(s, p);
