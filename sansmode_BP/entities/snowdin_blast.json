@@ -35,9 +35,12 @@
             1.45,
             0
           ],
-          "gravity": 0.0,
+          "gravity": 0,
           "uncertaintyBase": 0
         }
+      },
+      "despawn": {
+        "minecraft:instant_despawn": {}
       }
     },
     "components": {
@@ -70,11 +73,18 @@
         "catchFire": true,
         "offset": [
           0,
-          1.0,
+          1,
           1
         ],
-        "gravity": 0.0,
+        "gravity": 0,
         "uncertaintyBase": 0
+      },
+      "minecraft:timer": {
+        "time": 4,
+        "looping": false,
+        "time_down_event": {
+          "event": "despawn"
+        }
       }
     },
     "event": {
@@ -92,6 +102,15 @@
             }
           }
         ]
+      }
+    },
+    "events": {
+      "despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
       }
     }
   }
