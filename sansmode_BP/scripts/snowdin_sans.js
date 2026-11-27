@@ -19,7 +19,7 @@ const KNOCK_RANGE = 3;            // ближе — отталкивает
 const KNOCK_POWER = 1.1;
 
 // выбор основной атаки (сумма = 1): кость / бластер / шипы
-const P_BONE = 0.40, P_BLASTER = 0.25; // остальное — шипы
+const P_BONE = 0.35, P_BLASTER = 0.25, P_LIFT_BONES = 0.15; // остальное — шипы
 
 const BONE_DAMAGE_ENTITY = "sansmode:snowdin_bone";
 
@@ -41,7 +41,7 @@ const SLEEP_AT = 79;              // на этом уворте Санс мож�
 const SLEEP_CHANCE = 0.5;
 const WINDOW_TICKS = 200;         // 10 сек: окно, пока можно убить (сон / усталость)
 const DODGE_STEP = [3, 5];        // на сколько блоков отпрыгивает
-const SHOW_DODGE_COUNTER = true;  // показывать счёт уворотов над хотбаром (для теста)
+const SHOW_DODGE_COUNTER = false; // счётчик уворотов скрыт от игроков
 
 const K_KILLS = "snowdin:kills";
 const K_PEAK = "snowdin:peak_lv";
@@ -186,6 +186,9 @@ if (world.afterEvents.entityHurt) {
 // ---- увороты ----
 function registerDodge(s, attacker) {
   if (!ok(s)) return;
+  const variant = safe(() => s.getComponent("minecraft:variant").value);
+  // До четвёртой стадии Санс не вступает в бой и не принимает удары.
+  if (variant !== 3) return;
   engage(s, attacker || nearestPlayer(s, 16));
   const st = stateOf(s), t = system.currentTick;
   if (st.mode !== "guard") return;
@@ -253,6 +256,34 @@ function throwBone(s, p) {
   safe(() => s.triggerEvent("sansmode:blue_eye"));
   system.runTimeout(() => { if (ok(s) && stateOf(s).mode === "guard") safe(() => s.triggerEvent("sansmode:stage_3")); }, 12);
   safe(() => s.dimension.playSound("random.bow", sl));
+}
+
+// Подбрасывание игрока и костяные шипы под точкой взлёта.
+function liftAndBoneTrap(s, p) {
+  if (!ok(s) || !ok(p)) return;
+  const dim = s.dimension;
+  const start = { x: p.location.x, y: p.location.y, z: p.location.z };
+  // Импульс подбрасывает игрока примерно на 10 блоков; шипы появляются у точки взлёта.
+  safe(() => p.applyImpulse({ x: 0, y: 1.35, z: 0 }));
+  snd(dim, "mob.enderdragon.flap", start, 1, 0.8);
+  fx(dim, "minecraft:totem_particle", { x: start.x, y: start.y + 0.2, z: start.z });
+  const offsets = [
+    [0, 0], [1.8, 0], [-1.8, 0], [0, 1.8], [0, -1.8]
+  ];
+  for (const [ox, oz] of offsets) {
+    const x = start.x + ox, z = start.z + oz;
+    const y = groundY(dim, x, start.y, z);
+    for (let k = 0; k < 3; k++) fx(dim, "minecraft:basic_smoke_particle", { x, y: y + 0.1, z });
+    system.runTimeout(() => {
+      if (!ok(s) || spikes.length > 24) return;
+      const ent = safe(() => dim.spawnEntity("playersans:bone_spike", { x, y, z }));
+      if (ent) spikes.push({ ent, dim, x, y, z, born: system.currentTick, hit: new Set(), owner: s });
+    }, 14);
+  }
+  // Даём игроку время увернуться и затем смягчаем приземление.
+  system.runTimeout(() => {
+    if (ok(p)) safe(() => p.addEffect("slow_falling", 100, { amplifier: 0, showParticles: false }));
+  }, 30);
 }
 
 // Обычная атака бластером: d_gb сам ищет цель с тегом pst, сам стреляет и самонаводится (так задумано).
@@ -553,6 +584,7 @@ function tickSans(s) {
       const r = Math.random();
       if (r < P_BONE) throwBone(s, p);
       else if (r < P_BONE + P_BLASTER) fireBlaster(s, p);
+      else if (r < P_BONE + P_BLASTER + P_LIFT_BONES) liftAndBoneTrap(s, p);
       else spikeWave(s, p);
     }
     if (dist <= 30 && t >= st.flyAt) {
