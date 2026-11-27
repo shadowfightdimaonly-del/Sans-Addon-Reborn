@@ -154,3 +154,5 @@ papyrus.snowdin.attack_ring=§fPAPYRUS: BONE RING!
 papyrus.snowdin.attack_cage=§fPAPYRUS: BONE CAGE!
 papyrus.snowdin.attack_rain=§fPAPYRUS: BONE RAIN!
 papyrus.snowdin.attack_cross=§fPAPYRUS: CROSS VOLLEY!
+entity.sansmode:sans_preview.name=Sans 测试模型
+item.spawn_egg.entity.sansmode:sans_preview.name=Sans 测试模型
