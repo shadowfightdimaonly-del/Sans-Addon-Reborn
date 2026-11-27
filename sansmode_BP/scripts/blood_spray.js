@@ -1,5 +1,6 @@
 import "./sans_attacks.js";
 import "./snowdin_sans.js";
+import "./papyrus_snowdin.js";
 import { MolangVariableMap, world } from "@minecraft/server";
 
 const BLOOD_COLOR = {
