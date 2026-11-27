@@ -1,4 +1,4 @@
-import { world, system } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 
 const PAPYRUS = "sansmode:snowdin_papyrus";
 const BONE = "sansmode:papyrus_bone";
@@ -26,9 +26,8 @@ function giveSilverKnife(p) {
   if (invItem(p,"sansmode:silver_knife")) return;
   const inv=safe(() => p.getComponent("minecraft:inventory").container);
   if (!inv) return;
-  const item=safe(() => new (globalThis.ItemStack || Object)( "sansmode:silver_knife",1));
+  const item=safe(() => new ItemStack("sansmode:silver_knife",1));
   if (item) safe(() => inv.addItem(item));
-  else safe(() => p.runCommand("give @s sansmode:silver_knife 1"));
 }
 function saveAndSet(dim,pos,type,st) {
   const b=safe(() => dim.getBlock(pos)); if (!b) return;
@@ -74,7 +73,7 @@ function spawnBone(boss,target,opts={}) {
   const to=opts.to||center(target), dir=norm(sub(to,from));
   const bone=safe(() => dim.spawnEntity(BONE,from));
   if (!bone) return;
-  if (opts.blue) blueProjectiles.add(bone.id);
+  if (opts.blue) { blueProjectiles.add(bone.id); safe(() => bone.triggerEvent("papyrus:blue")); }
   if (opts.vertical) safe(() => bone.setRotation({x:90,y:0}));
   const pc=safe(() => bone.getComponent("minecraft:projectile"));
   if (pc) safe(() => pc.shoot(mul(dir,opts.speed||2.7)));
@@ -122,17 +121,13 @@ function hit(p,boss,damage=5) {
   fx(p.dimension,"minecraft:crit_particle",center(p));
 }
 function lineBones(st,p,axis,count=7,blue=false) {
-  const l=p.location, a=axis==="x"?{x:1,z:0}:{x:0,z:1};
+  const origin={x:st.boss.location.x,y:st.boss.location.y+0.8,z:st.boss.location.z};
+  const dir=norm(sub(center(p),origin));
+  const side=axis==="x"?{x:-dir.z,z:dir.x}:{x:dir.z,z:-dir.x};
   for(let i=0;i<count;i++){
     const k=i-(count-1)/2;
-    const from={x:l.x+a.x*k*1.35,y:l.y+0.2,z:l.z+a.z*k*1.35};
-    const to={x:from.x,y:from.y+0.5,z:from.z};
-    const b=safe(() => st.dim.spawnEntity(BONE,from));
-    if(!b) continue;
-    if(blue) blueProjectiles.add(b.id);
-    const pc=safe(() => b.getComponent("minecraft:projectile"));
-    if(pc) safe(() => pc.shoot({x:0,y:0.08,z:0}));
-    system.runTimeout(()=>{if(valid(b))safe(()=>b.remove());blueProjectiles.delete(b.id);},45);
+    const from={x:origin.x+side.x*k*1.15,y:origin.y,z:origin.z+side.z*k*1.15};
+    spawnBone(st.boss,p,{from,to:add(from,mul(dir,18)),speed:3.0,blue});
   }
 }
 function attackFan(st,p) {
@@ -233,8 +228,8 @@ function onPuzzleInteract(player,block){
     if(st.buttons.has(key)){answer(st,player,st.buttons.get(key));return;}
   }
 }
-if(world.afterEvents.playerInteractWithBlock)world.afterEvents.playerInteractWithBlock.subscribe(ev=>onPuzzleInteract(ev.player,ev.block));
-if(world.afterEvents.itemUseOn)world.afterEvents.itemUseOn.subscribe(ev=>onPuzzleInteract(ev.source,ev.block));
+if(world.afterEvents.playerInteractWithBlock) world.afterEvents.playerInteractWithBlock.subscribe(ev=>onPuzzleInteract(ev.player,ev.block));
+else if(world.afterEvents.itemUseOn) world.afterEvents.itemUseOn.subscribe(ev=>onPuzzleInteract(ev.source,ev.block));
 if(world.afterEvents.projectileHitEntity)world.afterEvents.projectileHitEntity.subscribe(ev=>{
   const b=safe(()=>ev.projectile), id=safe(()=>b.id);
   if(!id||!blueProjectiles.has(id))return;
