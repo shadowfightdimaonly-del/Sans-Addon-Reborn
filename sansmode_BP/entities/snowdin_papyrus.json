@@ -1,0 +1,65 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "sansmode:snowdin_papyrus",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "combat": {
+        "minecraft:damage_sensor": {
+          "triggers": {
+            "cause": "all",
+            "deals_damage": true
+          }
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "papyrus",
+          "monster"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1200,
+        "max": 1200
+      },
+      "minecraft:collision_box": {
+        "width": 0.7,
+        "height": 1.9
+      },
+      "minecraft:physics": {},
+      "minecraft:persistent": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1
+      },
+      "minecraft:movement": {
+        "value": 0
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:nameable": {}
+    },
+    "events": {
+      "papyrus:combat_on": {
+        "add": {
+          "component_groups": [
+            "combat"
+          ]
+        }
+      }
+    }
+  }
+}
