@@ -65,7 +65,9 @@ function showPuzzle(st) {
   const p=players.sort((a,b)=>Math.hypot(a.location.x-st.boss.location.x,a.location.z-st.boss.location.z)-Math.hypot(b.location.x-st.boss.location.x,b.location.z-st.boss.location.z))[0];
   if (!st.quizPlayer) st.target=p;
   const dx=st.boss.location.x-p.location.x, dz=st.boss.location.z-p.location.z, len=Math.hypot(dx,dz)||1;
-  const forward={x:dx/len,z:dz/len}, side={x:-forward.z,z:forward.x};
+  const forward={x:dx/len,z:dz/len};
+  const rawSide={x:-forward.z,z:forward.x};
+  const side=Math.abs(rawSide.x)>=Math.abs(rawSide.z)?{x:Math.sign(rawSide.x)||1,z:0}:{x:0,z:Math.sign(rawSide.z)||1};
   const y=Math.floor(p.location.y)-1;
   const colors=["minecraft:red_concrete","minecraft:blue_concrete","minecraft:yellow_concrete","minecraft:lime_concrete"];
   const count=q.count;
