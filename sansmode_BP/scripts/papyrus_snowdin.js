@@ -144,7 +144,7 @@ function attackThrow(st,p) { spawnBone(st.boss,p,{speed:4.1}); say(st,"papyrus.s
 function attackSpikes(st,p) {
   const l=p.location;
   for(let i=-2;i<=2;i++){
-    const pos={x:l.x+i*1.15,y:l.y-1.0,z:l.z};
+    const pos={x:l.x+i*1.15,y:l.y+0.1,z:l.z};
     const b=safe(()=>st.dim.spawnEntity(BONE,pos)); if(!b)continue;
     safe(()=>b.setRotation({x:90,y:0}));
     const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:3.2,z:0}));
@@ -161,7 +161,7 @@ function attackBlueSoul(st,p) {
     const l=p.location;
     const from={x:l.x,y:l.y+7,z:l.z};
     const b=safe(()=>st.dim.spawnEntity(BONE,from)); if(!b)return;
-    blueProjectiles.add(b.id); safe(()=>b.triggerEvent("papyrus:blue")); safe(()=>b.setRotation({x:90,y:0}));
+    if(i%2===0){blueProjectiles.add(b.id);safe(()=>b.triggerEvent("papyrus:blue"));} safe(()=>b.setRotation({x:90,y:0}));
     const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:-3.5,z:0}));
     system.runTimeout(()=>{if(valid(b))safe(()=>b.remove());blueProjectiles.delete(b.id);},55);
   },i*9);
