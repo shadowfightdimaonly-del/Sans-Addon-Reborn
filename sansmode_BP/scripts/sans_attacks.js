@@ -961,7 +961,7 @@ function comboGasterBehind(p, pay) {
 }
 
 // ---- Shift + Откидывание: цель подбрасывается на подвижную платформу, по ней по очереди бьют бластеры (можно подпрыгнуть)
-const PLAT = { SIZE: 2, LIFT: 5, LIFT_TICKS: 10, MOVE_EVERY: 12, SHOTS: 6, SHOT_GAP: 18, LOCK: 14, FIRE: 26, BEAM: 8, R: 6.5, BEAM_R: 1.1, BLOCK: "minecraft:bone_block" };
+const PLAT = { SIZE: 2, LIFT: 5, LIFT_TICKS: 10, MOVE_EVERY: 12, SHOTS: 6, SHOT_GAP: 38, LOCK: 12, FIRE: 20, BEAM: 8, R: 6.5, BEAM_R: 1.1, BLOCK: "minecraft:bone_block" };
 const PLAT_MOVE = [1, 2, 1, 0, -1, -2, -1, 0];
 function platSet(c, ox, oz) { // перекладываем блоки платформы со сдвигом
   const P = PLAT;
@@ -1755,7 +1755,11 @@ function comboTrial(p) {
 }
 
 // ---- Звук выстрела обычных бластеров (предмет d_gb): раньше он был только у «Последней атаки»
-const BLASTER_SHOT_TYPES = new Set(["playersans:d_gbx", "gasterbones:d_gbx"]); // Гастер: обычный бластер (d_gb) тоже со звуком
+const BLASTER_SHOT_TYPES = new Set([
+  "playersans:d_gb", "playersans:d_gb_right", "playersans:d_gb_top",
+  "playersans:d_gbx", "gasterbones:d_gb", "gasterbones:d_gb_right",
+  "gasterbones:d_gb_top", "gasterbones:d_gbx"
+]); // Базовые бластеры и их снаряды: звук не теряется у обычного Sans
 const lastBlasterSound = new Map();
 world.afterEvents.entitySpawn.subscribe((ev) => {
   const e = ev.entity;
