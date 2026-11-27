@@ -61,10 +61,24 @@ function showPuzzle(st) {
   st.answered=false;
   const q=PUZZLES[st.index];
   const players=world.getAllPlayers().filter(p=>p.dimension.id===st.dim.id && Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)<28);
-  for (const p of players) {
-    msg(p,q.key);
-    msg(p,q.options);
-    msg(p,"papyrus.snowdin.chat_answer");
+  if (!players.length) return;
+  const p=players.sort((a,b)=>Math.hypot(a.location.x-st.boss.location.x,a.location.z-st.boss.location.z)-Math.hypot(b.location.x-st.boss.location.x,b.location.z-st.boss.location.z))[0];
+  if (!st.quizPlayer) st.target=p;
+  const dx=st.boss.location.x-p.location.x, dz=st.boss.location.z-p.location.z, len=Math.hypot(dx,dz)||1;
+  const forward={x:dx/len,z:dz/len}, side={x:-forward.z,z:forward.x};
+  const y=Math.floor(p.location.y)-1;
+  const colors=["minecraft:red_concrete","minecraft:blue_concrete","minecraft:yellow_concrete","minecraft:lime_concrete"];
+  const count=q.count;
+  for(let i=0;i<count;i++){
+    const offset=(i-(count-1)/2)*1.35;
+    const pos={x:Math.floor(p.location.x+forward.x*2+side.x*offset),y,z:Math.floor(p.location.z+forward.z*2+side.z*offset)};
+    saveAndSet(st.dim,pos,colors[i],st);
+    st.buttons.set(`${pos.x},${pos.y},${pos.z}`,i);
+  }
+  for (const viewer of players) {
+    msg(viewer,q.key);
+    msg(viewer,q.options);
+    msg(viewer,"papyrus.snowdin.choose");
   }
 }
 function finishQuiz(st) {
@@ -272,23 +286,21 @@ function initBoss(boss) {
   system.runTimeout(()=>{if(valid(boss)&&st.phase==="puzzle")showPuzzle(st);},30);
 }
 world.afterEvents.entitySpawn.subscribe(ev=>{if(safe(()=>ev.entity.typeId)===PAPYRUS)initBoss(ev.entity);});
-// Chat answers: only intercept numeric answers from players near an active Papyrus.
-if (world.beforeEvents?.chatSend) {
-  world.beforeEvents.chatSend.subscribe(ev => {
-    const p=ev.sender;
-    const textValue=String(ev.message||"").trim();
-    if (!/^[1-4]$/.test(textValue)) return;
-    for (const st of states.values()) {
-      if (st.phase!=="puzzle" || p.dimension.id!==st.dim.id) continue;
-      if (st.quizPlayer && st.quizPlayer.id!==p.id) continue;
-      if (Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)>28) continue;
-      ev.cancel=true;
-      const pick=Number(textValue)-1;
-      system.run(()=>{if(valid(p)&&st.phase==="puzzle"&&!st.answered)answer(st,p,pick);});
-      return;
-    }
-  });
-}
+// Answers are selected by interacting with one of the colored blocks.
+world.afterEvents.playerInteractWithBlock.subscribe(ev => {
+  const p=ev.player, block=ev.block;
+  if(!valid(p)||!block) return;
+  const pos=block.location, key=`${pos.x},${pos.y},${pos.z}`;
+  for(const st of states.values()){
+    if(st.phase!=="puzzle"||p.dimension.id!==st.dim.id||st.answered) continue;
+    const pick=st.buttons.get(key);
+    if(pick===undefined) continue;
+    if(st.quizPlayer&&st.quizPlayer.id!==p.id) return;
+    if(Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)>28) return;
+    system.run(()=>{if(valid(p)&&st.phase==="puzzle"&&!st.answered)answer(st,p,pick);});
+    return;
+  }
+});
 
 if(world.afterEvents.projectileHitEntity)world.afterEvents.projectileHitEntity.subscribe(ev=>{
   const b=safe(()=>ev.projectile), id=safe(()=>b.id);
