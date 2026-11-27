@@ -222,16 +222,33 @@ function initBoss(boss) {
   system.runTimeout(()=>{if(valid(boss)&&st.phase==="puzzle")showPuzzle(st);},30);
 }
 world.afterEvents.entitySpawn.subscribe(ev=>{if(safe(()=>ev.entity.typeId)===PAPYRUS)initBoss(ev.entity);});
+const lastPuzzleInteractions = new Map();
 function onPuzzleInteract(player,block){
   if(!player||!block)return;
-  const l=block.location, key=Math.floor(l.x)+","+Math.floor(l.y)+","+Math.floor(l.z);
-  for(const st of states.values()){
-    if(st.phase!=="puzzle"||player.dimension.id!==st.dim.id)continue;
-    if(st.buttons.has(key)){answer(st,player,st.buttons.get(key));return;}
-  }
+  const l=safe(()=>block.location);
+  if(!l)return;
+  const key=Math.floor(l.x)+","+Math.floor(l.y)+","+Math.floor(l.z);
+  const lock=player.id+"|"+key;
+  const tick=system.currentTick;
+  if(lastPuzzleInteractions.get(lock)===tick)return;
+  lastPuzzleInteractions.set(lock,tick);
+  system.run(()=>{
+    if(!valid(player))return;
+    for(const st of states.values()){
+      if(st.phase!=="puzzle"||player.dimension.id!==st.dim.id)continue;
+      if(st.buttons.has(key)){answer(st,player,st.buttons.get(key));return;}
+    }
+  });
 }
-if(world.afterEvents.playerInteractWithBlock) world.afterEvents.playerInteractWithBlock.subscribe(ev=>onPuzzleInteract(ev.player,ev.block));
-else if(world.afterEvents.itemUseOn) world.afterEvents.itemUseOn.subscribe(ev=>onPuzzleInteract(ev.source,ev.block));
+// The before-event catches empty-hand taps in both Survival and Creative.
+// Defer world/gameplay changes to the next tick because before-events are read-only.
+if(world.beforeEvents?.playerInteractWithBlock){
+  world.beforeEvents.playerInteractWithBlock.subscribe(ev=>onPuzzleInteract(ev.player,ev.block));
+}
+// Fallback for clients/API builds that report item-on-block interactions separately.
+if(world.afterEvents?.itemUseOn){
+  world.afterEvents.itemUseOn.subscribe(ev=>onPuzzleInteract(ev.source,ev.block));
+}
 if(world.afterEvents.projectileHitEntity)world.afterEvents.projectileHitEntity.subscribe(ev=>{
   const b=safe(()=>ev.projectile), id=safe(()=>b.id);
   if(!id||!blueProjectiles.has(id))return;
