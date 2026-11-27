@@ -154,3 +154,5 @@ papyrus.snowdin.attack_ring=§fПАПИРУС: КОСТЯНОЕ КОЛЬЦО!
 papyrus.snowdin.attack_cage=§fПАПИРУС: КОСТЯНАЯ КЛЕТКА!
 papyrus.snowdin.attack_rain=§fПАПИРУС: КОСТЯНОЙ ДОЖДЬ!
 papyrus.snowdin.attack_cross=§fПАПИРУС: ПЕРЕКРЁСТНЫЙ ЗАЛП!
+entity.sansmode:sans_preview.name=Манекен Санса (тест)
+item.spawn_egg.entity.sansmode:sans_preview.name=Манекен Санса (тест)
