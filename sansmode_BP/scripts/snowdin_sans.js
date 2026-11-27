@@ -107,8 +107,60 @@ const stateOf = (s) => {
 
 const IGNORE = new Set(["minecraft:armor_stand", "minecraft:item", "minecraft:xp_orb", "minecraft:player", TYPE]);
 world.afterEvents.entityDie.subscribe((ev) => {
-  const id = safe(() => ev.deadEntity.typeId);
-  if (id === TYPE) { states.delete(safe(() => ev.deadEntity.id)); return; }
+  const dead = ev.deadEntity;
+  const id = safe(() => dead.typeId);
+  if (id === TYPE) {
+    states.delete(safe(() => dead.id));
+    // Сохраняем визуальную копию: оригинальный моб уже удалён игрой.
+    const dim = safe(() => dead.dimension);
+    const loc = safe(() => dead.location);
+    if (dim && loc) {
+      const rot = safe(() => dead.getRotation()) || { x: 0, y: 0 };
+      const corpse = safe(() => dim.spawnEntity("sansmode:snowdin_sans_death", loc));
+      if (corpse) {
+        safe(() => corpse.setRotation(rot));
+        // Небольшие стилизованные красные отметины на уровне груди и губ.
+        const chest = { x: loc.x, y: loc.y + 1.05, z: loc.z };
+        const lip = { x: loc.x, y: loc.y + 1.72, z: loc.z };
+        for (let i = 0; i < 8; i++) {
+          system.runTimeout(() => {
+            if (!ok(corpse)) return;
+            fx(dim, "bloodspray:blood_spray", { x: chest.x + rand(-0.12, 0.12), y: chest.y + rand(-0.08, 0.08), z: chest.z - 0.18 });
+            if (i < 3) fx(dim, "bloodspray:blood_spray", { x: lip.x + rand(-0.04, 0.04), y: lip.y + rand(-0.03, 0.03), z: lip.z - 0.16 });
+          }, i * 2);
+        }
+        // Через 4 секунды — постепенное испарение светлыми частицами.
+        system.runTimeout(() => {
+          if (!ok(corpse)) return;
+          let age = 0;
+          const dissolve = system.runInterval(() => {
+            if (!ok(corpse) || age >= 40) {
+              system.clearRun(dissolve);
+              safe(() => corpse.remove());
+              return;
+            }
+            const p = corpse.location;
+            for (let n = 0; n < 9; n++) {
+              fx(dim, "minecraft:basic_crit_particle", {
+                x: p.x + rand(-0.38, 0.38),
+                y: p.y + rand(0.15, 1.9),
+                z: p.z + rand(-0.38, 0.38)
+              });
+              fx(dim, "minecraft:basic_smoke_particle", {
+                x: p.x + rand(-0.3, 0.3),
+                y: p.y + rand(0.2, 1.8),
+                z: p.z + rand(-0.3, 0.3)
+              });
+            }
+            age++;
+          }, 1);
+        }, 80);
+        // Страховка от зависшей копии, если цикл частиц прервётся.
+        system.runTimeout(() => { if (ok(corpse)) safe(() => corpse.remove()); }, 130);
+      }
+    }
+    return;
+  }
   const killer = safe(() => ev.damageSource && ev.damageSource.damagingEntity);
   if (!killer || killer.typeId !== "minecraft:player") return;
   if (!id || IGNORE.has(id)) return;
