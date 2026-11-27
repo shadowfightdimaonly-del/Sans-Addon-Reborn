@@ -21,7 +21,8 @@
         "min": 1,
         "max": 5
       },
-      "minecraft:scale": {
+      "minecraft:variant": { "value": 0 },
+        "minecraft:scale": {
         "value": 2.1
       },
       "minecraft:collision_box": {
