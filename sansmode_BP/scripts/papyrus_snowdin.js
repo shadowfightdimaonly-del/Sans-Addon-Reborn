@@ -59,7 +59,6 @@ function showPuzzle(st) {
   clearPuzzle(st);
   if (st.index>=PUZZLES.length) return finishQuiz(st);
   st.answered=false;
-  st.deadline=system.currentTick+600;
   const q=PUZZLES[st.index];
   const players=world.getAllPlayers().filter(p=>p.dimension.id===st.dim.id && Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)<28);
   for (const p of players) {
@@ -127,10 +126,11 @@ function answer(st,p,index) {
   }
   st.index++;
   if (st.index>=PUZZLES.length) {
-    system.runTimeout(()=>{if(valid(st.boss)&&st.phase==="puzzle")finishQuiz(st);},20);
+    finishQuiz(st);
     return;
   }
-  system.runTimeout(()=>{if(valid(st.boss)&&st.phase==="puzzle")showPuzzle(st);},20);
+  // The next question is sent only after the player answers this one.
+  showPuzzle(st);
 }
 function startFight(st,p) {
   clearPuzzle(st);
@@ -322,14 +322,5 @@ system.runInterval(()=>{
   const t=system.currentTick;
   for(const st of states.values()) {
     if(st.phase==="fight") { tickFight(st,t); continue; }
-    if(st.phase==="puzzle" && st.deadline && t>=st.deadline && !st.answered) {
-      st.answered=true;
-      st.wrong++;
-      st.index++;
-      const p=st.quizPlayer||st.target;
-      if(valid(p)) { msg(p,"papyrus.snowdin.timeout"); spawnBone(st.boss,p,{speed:2.2}); }
-      if(st.index>=PUZZLES.length) finishQuiz(st);
-      else showPuzzle(st);
-    }
   }
 },5);
