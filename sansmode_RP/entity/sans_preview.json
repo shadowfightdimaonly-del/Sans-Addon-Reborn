@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sansmode:sans_preview",
+      "materials": { "default": "psans" },
+      "textures": { "default": "psans" },
+      "geometry": { "default": "geometry.sans_preview" },
+      "render_controllers": ["controller.render.sans_preview"],
+      "spawn_egg": { "base_color": "#D9D9EE", "overlay_color": "#2F5BD8" }
+    }
+  }
+}
