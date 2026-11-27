@@ -175,3 +175,5 @@ papyrus.snowdin.options10=§71. 106   2. 206   3. 306   4. 156
 papyrus.snowdin.timeout=§cПАПИРУС: ВРЕМЯ ВЫШЛО! ЗАСЧИТЫВАЮ КАК ОШИБКУ!
 papyrus.snowdin.all_wrong=§cПАПИРУС: ТЫ НЕ ОТВЕТИЛ ПРАВИЛЬНО НИ РАЗУ! ТЕПЕРЬ БУДЕТ БИТВА!
 papyrus.snowdin.offended=§cПАПИРУС: ВСЕГО 1–3 ПРАВИЛЬНЫХ ОТВЕТА?! Я ОБИЖЕН! ПОЛУЧАЙ ШЕСТЬ КОСТЕЙ!
+papyrus.snowdin.freeze=§cПАПИРУС: НЕ ДВИГАЙСЯ.
+papyrus.snowdin.attack_fly=§fПАПИРУС: ЛЕТЯЩАЯ КОСТЬ!
