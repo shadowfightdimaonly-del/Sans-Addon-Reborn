@@ -216,6 +216,9 @@
     },
     "red_knife": {
       "textures": "killer_knife_icon"
+    },
+    "silver_knife": {
+      "textures": "killer_knife_icon"
     }
   }
 }
