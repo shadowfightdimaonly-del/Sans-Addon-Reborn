@@ -60,7 +60,9 @@ function showPuzzle(st) {
   const q=PUZZLES[st.index], l=st.boss.location, y=Math.floor(l.y);
   const offsets=[{x:-2,z:1},{x:0,z:1},{x:2,z:1}];
   for (let i=0;i<3;i++) {
-    const pos={x:Math.floor(l.x)+offsets[i].x,y,z:Math.floor(l.z)+offsets[i].z};
+    const pos={x:Math.floor(l.x)+offsets[i].x,y:y+1,z:Math.floor(l.z)+offsets[i].z};
+    const base={x:pos.x,y:y,z:pos.z};
+    saveAndSet(st.dim,base,"minecraft:stone_bricks",st);
     saveAndSet(st.dim,pos,q.blocks[i],st);
     st.buttons.set(pos.x+","+pos.y+","+pos.z,i);
   }
