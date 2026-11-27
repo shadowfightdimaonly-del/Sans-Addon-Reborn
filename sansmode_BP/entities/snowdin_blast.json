@@ -55,8 +55,8 @@
         "destroyAffectedByGriefing": true
       },
       "minecraft:collision_box": {
-        "width": 0.5,
-        "height": 0.01
+        "width": 0.45,
+        "height": 0.45
       },
       "minecraft:projectile": {
         "particle": "explode",
