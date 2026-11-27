@@ -38,7 +38,14 @@ const FLY_MAX = 6;
 
 const DODGE_ATTACK_UNLOCK = 40;   // две дополнительные атаки открываются после 40 уворотов
 const DODGES_NEEDED = 100;        // уворотов до усталости
-const SLEEP_AT = 99;              // на этом уворте Санс может уснуть
+const SLEEP_AT = 99;
+const BERSERK_AT = 65;             // после 65 уворотов: урон x1.7, скорость x1.5
+const BERSERK_DAMAGE = 1.7;
+const BERSERK_SPEED = 1.5;
+const enraged = (s) => !!s && stateOf(s).dodges >= BERSERK_AT;
+const attackDamage = (s, amount) => amount * (enraged(s) ? BERSERK_DAMAGE : 1);
+const attackTicks = (s, ticks) => Math.max(1, Math.round(ticks / (enraged(s) ? BERSERK_SPEED : 1)));
+const attackSpeed = (s, speed) => speed * (enraged(s) ? BERSERK_SPEED : 1);              // на этом уворте Санс может уснуть
 const SLEEP_CHANCE = 0.5;
 const WINDOW_TICKS = 200;         // 10 сек: окно, пока можно убить (сон / усталость)
 const DODGE_STEP = [3, 5];        // на сколько блоков отпрыгивает
@@ -131,6 +138,7 @@ function knock(ent, dx, dz, h, v) {
   catch (_) { safe(() => ent.applyImpulse({ x: dx * h, y: v, z: dz * h })); }
 }
 function hurtPlayer(p, amount, source) {
+  amount = attackDamage(source, amount);
   try { p.applyDamage(amount, { cause: "entityAttack", damagingEntity: source }); }
   catch (_) { safe(() => p.applyDamage(amount)); }
   safe(() => p.addEffect("wither", WITHER_TICKS, { amplifier: 0, showParticles: true }));
@@ -181,6 +189,11 @@ if (world.afterEvents.entityHurt) {
     const ds = ev.damageSource;
     const proj = safe(() => ds.damagingProjectile.typeId), src = safe(() => ds.damagingEntity.typeId);
     if (WITHER_SOURCES.has(proj) || WITHER_SOURCES.has(src)) safe(() => v.addEffect("wither", WITHER_TICKS, { amplifier: 0, showParticles: true }));
+    // Урон снарядов задан в entity JSON, поэтому добавляем бонус 70% после попадания.
+    if (proj === BONE_DAMAGE_ENTITY || proj === "sansmode:snowdin_blast") {
+      const owner = safe(() => v.dimension.getEntities({ type: TYPE, location: v.location, maxDistance: 32, closest: 1 }))?.[0];
+      if (owner && enraged(owner)) safe(() => v.applyDamage(3 * (BERSERK_DAMAGE - 1)));
+    }
   });
 }
 
@@ -251,7 +264,8 @@ function throwBone(s, p) {
   const at = { x: from.x + dx * 1.2, y: from.y + dy * 1.2, z: from.z + dz * 1.2 };
   const bone = safe(() => s.dimension.spawnEntity(BONE_DAMAGE_ENTITY, at));
   if (!bone) return;
-  const v = { x: dx * BONE_SPEED, y: dy * BONE_SPEED, z: dz * BONE_SPEED };
+  const boneSpeed = attackSpeed(s, BONE_SPEED);
+  const v = { x: dx * boneSpeed, y: dy * boneSpeed, z: dz * boneSpeed };
   const pc = safe(() => bone.getComponent("minecraft:projectile"));
   if (!(pc && safe(() => { pc.shoot(v); return true; }))) safe(() => bone.applyImpulse(v));
   safe(() => s.triggerEvent("sansmode:blue_eye"));
@@ -368,7 +382,7 @@ function tickCross(t) {
         fx(b.dim, "minecraft:basic_flame_particle", b.aim);
       }
       if (t >= b.fireAt) {
-        b.state = "fire"; b.endAt = t + CROSS.BEAM;
+        b.state = "fire"; b.endAt = t + (b.beamTicks ?? CROSS.BEAM);
         safe(() => b.ent.teleport(b.pos, { facingLocation: v3.add(b.pos, b.dir) }));
         safe(() => b.ent.triggerEvent("playersans:fire"));
         snd(b.dim, "mob.warden.sonic_boom", b.pos, 2, 1);
@@ -395,6 +409,7 @@ function tickCross(t) {
 const spikes = [];
 function spikeWave(s, p) {
   const dim = s.dimension, pl = p.location;
+  const warnTicks = attackTicks(s, SPIKE_WARN);
   safe(() => s.teleport(s.location, { facingLocation: pl }));
   for (let i = 0; i < SPIKE_COUNT; i++) {
     let x, z;
@@ -409,7 +424,7 @@ function spikeWave(s, p) {
       if (!ent) return;
       snd(dim, "dig.stone", { x, y, z }, 1, 0.8);
       spikes.push({ ent, dim, x, y, z, born: system.currentTick, hit: new Set(), owner: s });
-    }, SPIKE_WARN + i * 2);
+    }, warnTicks + attackTicks(s, i * 2));
   }
 }
 function tickSpikes(t) {
@@ -440,7 +455,7 @@ function spawnFlyBone(s, p) {
   if (!ent) return;
   snd(dim, "mob.skeleton.step", from, 1, 1.2);
   fx(dim, "minecraft:basic_flame_particle", from);
-  flyBones.push({ ent, dim, pos: { ...from }, target: p, born: system.currentTick, vel: null, owner: s });
+  flyBones.push({ ent, dim, pos: { ...from }, target: p, born: system.currentTick, vel: null, owner: s, hover: attackTicks(s, FLY_HOVER), speed: attackSpeed(s, FLY_SPEED) });
 }
 function tickFlyBones(t) {
   for (let i = flyBones.length - 1; i >= 0; i--) {
@@ -448,12 +463,13 @@ function tickFlyBones(t) {
     if (!ok(b.ent) || age > 120) { safe(() => b.ent.remove()); flyBones.splice(i, 1); continue; }
     if (!b.vel) {
       if (ok(b.target)) { const tl = b.target.location; safe(() => b.ent.teleport(b.pos, { facingLocation: { x: tl.x, y: tl.y + 1, z: tl.z } })); }
-      if (age >= FLY_HOVER && ok(b.target)) {
+      if (age >= (b.hover ?? FLY_HOVER) && ok(b.target)) {
         const tl = b.target.location;
         let dx = tl.x - b.pos.x, dy = tl.y + 1 - b.pos.y, dz = tl.z - b.pos.z;
         const l = Math.hypot(dx, dy, dz) || 1;
-        b.vel = { x: (dx / l) * FLY_SPEED, y: (dy / l) * FLY_SPEED, z: (dz / l) * FLY_SPEED };
-      } else if (age >= FLY_HOVER) { safe(() => b.ent.remove()); flyBones.splice(i, 1); }
+        const spd = b.speed ?? FLY_SPEED;
+        b.vel = { x: (dx / l) * spd, y: (dy / l) * spd, z: (dz / l) * spd };
+      } else if (age >= (b.hover ?? FLY_HOVER)) { safe(() => b.ent.remove()); flyBones.splice(i, 1); }
       continue;
     }
     b.pos = { x: b.pos.x + b.vel.x, y: b.pos.y + b.vel.y, z: b.pos.z + b.vel.z };
@@ -606,8 +622,8 @@ function dodgeSixBlasters(s, p) {
     snd(dim, "mob.endermen.portal", pos, 0.55, 0.8 + k * 0.04);
     crossBlasters.push({
       ent, dim, pos, ang, p, s, tc: { ...tc }, ult: attackId,
-      lockAt: t + 12 + k * 3, fireAt: t + 27 + k * 3,
-      endAt: 0, state: "orbit", dir: null, hit: false
+      lockAt: t + attackTicks(s, 12 + k * 3), fireAt: t + attackTicks(s, 27 + k * 3),
+      beamTicks: attackTicks(s, CROSS.BEAM), endAt: 0, state: "orbit", dir: null, hit: false
     });
   }
 }
@@ -637,7 +653,7 @@ function tickSans(s) {
     if (!st.announced && dist <= TALK_RANGE * 2) { st.announced = true; say(p, 3, LINES[3][0]); }
     if (dist < KNOCK_RANGE) knockBack(s, p);
     if (dist <= ATTACK_RANGE && t >= st.atkAt) {
-      st.atkAt = t + ATTACK_COOLDOWN;
+      st.atkAt = t + attackTicks(s, ATTACK_COOLDOWN);
       if (st.ultCount < 5 && st.dodges >= 50 && Math.random() < ULT.CHANCE && t >= (st.ultAt || 0)) { startUlt(s, p); return; }
       // После 40 успешных уворотов Санс начинает чередовать две новые атаки.
       if (st.dodges >= DODGE_ATTACK_UNLOCK && t >= (st.specialAt || 0) && Math.random() < 0.4) {
@@ -654,7 +670,7 @@ function tickSans(s) {
       else spikeWave(s, p);
     }
     if (dist <= 30 && t >= st.flyAt) {
-      st.flyAt = t + Math.floor(rand(FLY_EVERY[0], FLY_EVERY[1]));
+      st.flyAt = t + attackTicks(s, Math.floor(rand(FLY_EVERY[0], FLY_EVERY[1])));
       spawnFlyBone(s, p);
     }
     return;
