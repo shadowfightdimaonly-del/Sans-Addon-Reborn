@@ -215,10 +215,10 @@
       "textures": "errorbones_chaos"
     },
     "red_knife": {
-      "textures": "killer_knife_icon"
+      "textures": "red_knife"
     },
     "silver_knife": {
-      "textures": "killer_knife_icon"
+      "textures": "silver_knife"
     }
   }
 }
