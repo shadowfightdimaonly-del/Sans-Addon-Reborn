@@ -22,7 +22,11 @@
       },
       "render_controllers": [
         "controller.render.snowdin_papyrus"
-      ]
+      ],
+      "spawn_egg": {
+        "base_color": "#F2EEE2",
+        "overlay_color": "#D94B35"
+      }
     }
   }
 }
