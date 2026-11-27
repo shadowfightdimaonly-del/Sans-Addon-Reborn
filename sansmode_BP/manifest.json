@@ -4,7 +4,7 @@
         "description": "Sans Addon:Reborn Behavior Pack",
         "name": "Sans Addon:Reborn",
         "uuid": "c8670c95-19e1-8ade-3663-2cd46918fac7",
-        "version": [1, 21, 6],
+        "version": [1, 21, 7],
         "min_engine_version": [1, 20, 0]
     },
     "modules": [
@@ -12,13 +12,13 @@
             "description": "By Pipis-AFC",
             "type": "data",
             "uuid": "f8168c05-17e8-8ade-2663-6cd27418fac7",
-            "version": [1, 21, 6]
+            "version": [1, 21, 7]
         },
         {
             "description": "Blood Scripting Module",
             "type": "script",
             "uuid": "a7d89c05-18e9-9bde-3764-7cd38529fbd8",
-            "version": [1, 21, 6],
+            "version": [1, 21, 7],
             "entry": "scripts/blood_spray.js"
         }
     ],
