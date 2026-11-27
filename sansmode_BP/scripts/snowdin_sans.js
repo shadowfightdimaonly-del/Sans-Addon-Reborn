@@ -37,8 +37,8 @@ const FLY_SPEED = 0.5;            // блоков за тик (средняя с
 const FLY_MAX = 6;
 
 const DODGE_ATTACK_UNLOCK = 40;   // две дополнительные атаки открываются после 40 уворотов
-const DODGES_NEEDED = 80;         // уворотов до усталости
-const SLEEP_AT = 79;              // на этом уворте Санс может уснуть
+const DODGES_NEEDED = 100;        // уворотов до усталости
+const SLEEP_AT = 99;              // на этом уворте Санс может уснуть
 const SLEEP_CHANCE = 0.5;
 const WINDOW_TICKS = 200;         // 10 сек: окно, пока можно убить (сон / усталость)
 const DODGE_STEP = [3, 5];        // на сколько блоков отпрыгивает
