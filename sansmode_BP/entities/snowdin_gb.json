@@ -67,7 +67,7 @@
             "max_dist": 30
           }
         ],
-        "must_see": true
+        "must_see": false
       },
       "minecraft:fall_damage": {
         "value": 0.0
