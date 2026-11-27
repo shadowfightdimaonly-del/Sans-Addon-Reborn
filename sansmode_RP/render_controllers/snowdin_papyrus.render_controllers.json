@@ -1,0 +1,33 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.snowdin_papyrus": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    },
+    "controller.render.papyrus_bone": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "color": {
+        "r": "query.variant==1?0.25:1",
+        "g": "query.variant==1?0.55:1",
+        "b": "query.variant==1?1:1",
+        "a": "1"
+      }
+    }
+  }
+}
