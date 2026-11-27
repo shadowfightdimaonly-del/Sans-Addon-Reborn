@@ -11,10 +11,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damage": 60,
-      "minecraft:icon": "iron_sword",
-      "minecraft:display_name": {
-        "value": "§fСеребряный нож"
-      }
+      "minecraft:icon": "silver_knife"
     }
   }
 }
