@@ -47,7 +47,7 @@
         "charge_shoot_trigger": 0.5,
         "attack_radius": 30,
         "burst_shots": 990,
-        "burst_interval": 0.4
+        "burst_interval": 0.2667
       },
       "minecraft:fire_immune": true,
       "minecraft:behavior.nearest_attackable_target": {
