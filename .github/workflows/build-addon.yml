@@ -32,6 +32,8 @@ jobs:
               "sansmode_BP/entities/papyrus_bone.json",
               "sansmode_BP/items/sansmode_silver_knife.json",
               "sansmode_RP/entity/snowdin_papyrus.json",
+              "sansmode_RP/models/entity/snowdin_papyrus.geo.json",
+              "sansmode_RP/animations/snowdin_papyrus.json",
               "sansmode_RP/entity/papyrus_bone.json",
               "sansmode_RP/render_controllers/snowdin_papyrus.render_controllers.json",
               "sansmode_RP/textures/item_texture.json",
