@@ -7,7 +7,7 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "dpapyrus"
+        "default": "textures/entity/snowdin_papyrus"
       },
       "geometry": {
         "default": "geometry.snowdin_papyrus"
