@@ -57,6 +57,7 @@ function showPuzzle(st) {
     say(st,"papyrus.snowdin.all_correct");
     return;
   }
+  st.answered=false;
   const q=PUZZLES[st.index], l=st.boss.location, y=Math.floor(l.y);
   const offsets=[{x:-2,z:1},{x:0,z:1},{x:2,z:1}];
   for (let i=0;i<3;i++) {
@@ -78,14 +79,16 @@ function spawnBone(boss,target,opts={}) {
   if (opts.blue) { blueProjectiles.add(bone.id); safe(() => bone.triggerEvent("papyrus:blue")); }
   if (opts.vertical) safe(() => bone.setRotation({x:90,y:0}));
   const pc=safe(() => bone.getComponent("minecraft:projectile"));
-  if (pc) safe(() => pc.shoot(mul(dir,opts.speed||2.7)));
-  else safe(() => bone.applyImpulse(mul(dir,opts.speed||2.7)));
+  const shotSpeed=(opts.speed||2.7)*0.55;
+  if (pc) safe(() => pc.shoot(mul(dir,shotSpeed)));
+  else safe(() => bone.applyImpulse(mul(dir,shotSpeed)));
   snd(dim,"random.bow",from,0.45,opts.blue?1.35:0.9);
   system.runTimeout(() => { if(valid(bone)) safe(() => bone.remove()); blueProjectiles.delete(bone.id); },100);
   return bone;
 }
 function answer(st,p,index) {
-  if (st.phase!=="puzzle" || !valid(p)) return;
+  if (st.phase!=="puzzle" || st.answered || !valid(p)) return;
+  st.answered=true;
   const q=PUZZLES[st.index];
   if (index===q.answer) {
     msg(p,"papyrus.snowdin.correct");
@@ -149,7 +152,7 @@ function attackSpikes(st,p) {
     const pos={x:l.x+i*1.15,y:l.y+0.1,z:l.z};
     const b=safe(()=>st.dim.spawnEntity(BONE,pos)); if(!b)continue;
     safe(()=>b.setRotation({x:90,y:0}));
-    const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:3.2,z:0}));
+    const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:2.0,z:0}));
     system.runTimeout(()=>{if(valid(b))safe(()=>b.remove());},45);
   }
   say(st,"papyrus.snowdin.attack_spikes");
@@ -164,7 +167,7 @@ function attackBlueSoul(st,p) {
     const from={x:l.x,y:l.y+7,z:l.z};
     const b=safe(()=>st.dim.spawnEntity(BONE,from)); if(!b)return;
     if(i%2===0){blueProjectiles.add(b.id);safe(()=>b.triggerEvent("papyrus:blue"));} safe(()=>b.setRotation({x:90,y:0}));
-    const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:-3.5,z:0}));
+    const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:-2.0,z:0}));
     system.runTimeout(()=>{if(valid(b))safe(()=>b.remove());blueProjectiles.delete(b.id);},55);
   },i*9);
 }
@@ -187,7 +190,7 @@ function attackRain(st,p) {
     const l=p.location, from={x:l.x+rand(-4,4),y:l.y+8,z:l.z+rand(-4,4)};
     const b=safe(()=>st.dim.spawnEntity(BONE,from)); if(!b)return;
     safe(()=>b.setRotation({x:90,y:0}));
-    const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:-3.8,z:0}));
+    const pc=safe(()=>b.getComponent("minecraft:projectile")); if(pc)safe(()=>pc.shoot({x:0,y:-2.0,z:0}));
     system.runTimeout(()=>{if(valid(b))safe(()=>b.remove());},55);
   },i*4);
   say(st,"papyrus.snowdin.attack_rain");
@@ -201,6 +204,14 @@ function attackCross(st,p) {
   say(st,"papyrus.snowdin.attack_cross");
 }
 const ATTACKS=[attackFan,attackRow,attackThrow,attackSpikes,attackBlueSoul,attackRing,attackCage,attackRain,attackCross];
+function teleportAfterAttack(st,p) {
+  if (!valid(st.boss)||!valid(p)) return;
+  const dx=st.boss.location.x-p.location.x;
+  const dz=st.boss.location.z-p.location.z;
+  const length=Math.hypot(dx,dz)||1;
+  const dir=length===1&&dx===0&&dz===0?{x:1,z:0}:{x:dx/length,z:dz/length};
+  safe(()=>st.boss.teleport({x:p.location.x+dir.x*10,y:p.location.y,z:p.location.z+dir.z*10},{dimension:st.dim,checkForBlocks:true}));
+}
 function tickFight(st,t) {
   if(!valid(st.boss)){clearPuzzle(st);states.delete(st.id);return;}
   if(!valid(st.target) || st.target.dimension.id!==st.dim.id){
@@ -211,12 +222,13 @@ function tickFight(st,t) {
   if(t>=st.nextAttack){
     const attack=ATTACKS[Math.floor(Math.random()*ATTACKS.length)];
     attack(st,st.target);
-    st.nextAttack=t+65+Math.floor(Math.random()*25);
+    teleportAfterAttack(st,st.target);
+    st.nextAttack=t+40;
   }
 }
 function initBoss(boss) {
   if(!valid(boss)||boss.typeId!==PAPYRUS||states.has(boss.id))return;
-  const st={id:boss.id,boss,dim:boss.dimension,phase:"puzzle",index:0,wrong:0,blocks:[],buttons:new Map(),target:null,nextAttack:0};
+  const st={id:boss.id,boss,dim:boss.dimension,phase:"puzzle",index:0,wrong:0,answered:false,blocks:[],buttons:new Map(),target:null,nextAttack:0};
   states.set(boss.id,st);
   say(st,"papyrus.snowdin.greeting");
   system.runTimeout(()=>{if(valid(boss)&&st.phase==="puzzle")showPuzzle(st);},30);
