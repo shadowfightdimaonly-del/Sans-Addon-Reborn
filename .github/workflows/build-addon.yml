@@ -19,6 +19,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Validate Papyrus JavaScript and JSON
+        run: |
+          node --input-type=module --check < sansmode_BP/scripts/papyrus_snowdin.js
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          files = [
+              "sansmode_BP/entities/snowdin_blast.json",
+              "sansmode_BP/entities/snowdin_gb.json",
+              "sansmode_BP/entities/snowdin_papyrus.json",
+              "sansmode_BP/entities/papyrus_bone.json",
+              "sansmode_BP/items/sansmode_silver_knife.json",
+              "sansmode_RP/entity/snowdin_papyrus.json",
+              "sansmode_RP/entity/papyrus_bone.json",
+              "sansmode_RP/render_controllers/snowdin_papyrus.render_controllers.json",
+              "sansmode_RP/textures/item_texture.json",
+          ]
+          for name in files:
+              json.loads(Path(name).read_text(encoding="utf-8"))
+          print("Papyrus and blaster JSON validation passed")
+          PY
+
       - name: Build Minecraft addon package
         run: |
           python3 - <<'PY'
