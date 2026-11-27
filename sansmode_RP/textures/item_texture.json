@@ -20,11 +20,6 @@
     "sanstrial": {
       "textures": "textures/items/player_trial_icon"
     },
-    "psans:face": {
-      "textures": [
-        "textures/items/psans_face"
-      ]
-    },
     "playersans_telekinesis": {
       "textures": "textures/items/playersans_telekinesis"
     },

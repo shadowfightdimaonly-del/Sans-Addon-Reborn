@@ -13,10 +13,6 @@
       "geometry": {
         "default": "geometry.psansbone"
       },
-      "spawn_egg": {
-        "texture": "psans:face",
-        "texture_index": 0
-      },
       "animation_controllers": [
         {
           "psans": "controller.animation.psans"
