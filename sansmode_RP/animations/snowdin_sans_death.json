@@ -1,0 +1,18 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.snowdin_sans.death": {
+      "loop": true,
+      "bones": {
+        "body": { "position": [0, -3, 0], "rotation": [0, 0, 0] },
+        "head": { "rotation": [24, 0, 0] },
+        "leftArm": { "rotation": [-12, 0, -24] },
+        "rightArm": { "rotation": [-12, 0, 24] },
+        "leftLeg": { "rotation": [-82, 0, -5] },
+        "leftLeg2": { "rotation": [82, 0, 0] },
+        "rightLeg": { "rotation": [-82, 0, 5] },
+        "rightLeg2": { "rotation": [82, 0, 0] }
+      }
+    }
+  }
+}
