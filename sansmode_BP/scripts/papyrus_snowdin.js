@@ -276,7 +276,6 @@ function tickFight(st,t) {
   if(t>=st.nextAttack){
     const attack=ATTACKS[Math.floor(Math.random()*ATTACKS.length)];
     attack(st,st.target);
-    teleportAfterAttack(st,st.target);
     st.nextAttack=t+40;
   }
 }
@@ -327,6 +326,8 @@ world.afterEvents.entityHurt.subscribe(ev=>{
   if(amount>=hp.currentValue){finishFight(st);system.runTimeout(()=>{if(valid(target))safe(()=>target.kill());},1);return;}
   const extra=Math.max(0,amount-(Number(ev.damage)||0));
   if(extra>0)safe(()=>hp.setCurrentValue(Math.max(0,hp.currentValue-extra)));
+  // Papyrus teleports only after the player successfully lands a knife hit.
+  teleportAfterAttack(st,attacker);
 });
 world.afterEvents.entityDie.subscribe(ev=>{
   const dead=ev.deadEntity;
