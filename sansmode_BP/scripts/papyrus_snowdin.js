@@ -44,31 +44,54 @@ function clearPuzzle(st) {
   st.buttons.clear();
 }
 const PUZZLES = [
-  {key:"papyrus.snowdin.q1",answer:1,blocks:["minecraft:red_concrete","minecraft:blue_concrete","minecraft:yellow_concrete"]},
-  {key:"papyrus.snowdin.q2",answer:2,blocks:["minecraft:orange_concrete","minecraft:lime_concrete","minecraft:purple_concrete"]},
-  {key:"papyrus.snowdin.q3",answer:0,blocks:["minecraft:cyan_concrete","minecraft:magenta_concrete","minecraft:white_concrete"]},
-  {key:"papyrus.snowdin.q4",answer:2,blocks:["minecraft:light_blue_concrete","minecraft:green_concrete","minecraft:black_concrete"]},
-  {key:"papyrus.snowdin.q5",answer:1,blocks:["minecraft:pink_concrete","minecraft:gray_concrete","minecraft:brown_concrete"]}
+  {key:"papyrus.snowdin.q1", options:"papyrus.snowdin.options1", answer:1, count:3},
+  {key:"papyrus.snowdin.q2", options:"papyrus.snowdin.options2", answer:2, count:3},
+  {key:"papyrus.snowdin.q3", options:"papyrus.snowdin.options3", answer:0, count:3},
+  {key:"papyrus.snowdin.q4", options:"papyrus.snowdin.options4", answer:2, count:3},
+  {key:"papyrus.snowdin.q5", options:"papyrus.snowdin.options5", answer:1, count:3},
+  {key:"papyrus.snowdin.q6", options:"papyrus.snowdin.options6", answer:1, count:4},
+  {key:"papyrus.snowdin.q7", options:"papyrus.snowdin.options7", answer:1, count:4},
+  {key:"papyrus.snowdin.q8", options:"papyrus.snowdin.options8", answer:1, count:4},
+  {key:"papyrus.snowdin.q9", options:"papyrus.snowdin.options9", answer:2, count:4},
+  {key:"papyrus.snowdin.q10", options:"papyrus.snowdin.options10", answer:1, count:4}
 ];
 function showPuzzle(st) {
   clearPuzzle(st);
-  if (st.index>=PUZZLES.length) {
-    st.phase="done";
-    say(st,"papyrus.snowdin.all_correct");
+  if (st.index>=PUZZLES.length) return finishQuiz(st);
+  st.answered=false;
+  st.deadline=system.currentTick+600;
+  const q=PUZZLES[st.index];
+  const players=world.getAllPlayers().filter(p=>p.dimension.id===st.dim.id && Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)<28);
+  for (const p of players) {
+    msg(p,q.key);
+    msg(p,q.options);
+    msg(p,"papyrus.snowdin.chat_answer");
+  }
+}
+function finishQuiz(st) {
+  st.phase="done";
+  if (st.correct===0) {
+    say(st,"papyrus.snowdin.all_wrong");
+    startFight(st,st.quizPlayer||st.target);
     return;
   }
-  st.answered=false;
-  const q=PUZZLES[st.index], l=st.boss.location, y=Math.floor(l.y);
-  const offsets=[{x:-2,z:1},{x:0,z:1},{x:2,z:1}];
-  for (let i=0;i<3;i++) {
-    const pos={x:Math.floor(l.x)+offsets[i].x,y:y+1,z:Math.floor(l.z)+offsets[i].z};
-    const base={x:pos.x,y:y,z:pos.z};
-    saveAndSet(st.dim,base,"minecraft:stone_bricks",st);
-    saveAndSet(st.dim,pos,q.blocks[i],st);
-    st.buttons.set(pos.x+","+pos.y+","+pos.z,i);
+  if (st.correct>=1 && st.correct<=3) {
+    say(st,"papyrus.snowdin.offended");
+    const p=st.quizPlayer||st.target;
+    if (valid(p)) {
+      const from={x:st.boss.location.x,y:st.boss.location.y+1.2,z:st.boss.location.z};
+      const to=center(p), base=norm(sub(to,from)), side={x:-base.z,z:base.x};
+      for(let i=-2;i<=3;i++) {
+        const offset=i*0.32;
+        const origin={x:from.x+side.x*offset,y:from.y,z:from.z+side.z*offset};
+        spawnBone(st.boss,p,{from:origin,to:add(to,{x:side.x*offset*1.5,y:0,z:side.z*offset*1.5}),speed:2.8});
+      }
+    }
+    clearPuzzle(st);
+    return;
   }
-  say(st,q.key);
-  for (const p of world.getAllPlayers()) if (p.dimension.id===st.dim.id && Math.hypot(p.location.x-l.x,p.location.z-l.z)<28) msg(p,"papyrus.snowdin.choose");
+  say(st,"papyrus.snowdin.all_correct");
+  clearPuzzle(st);
 }
 function spawnBone(boss,target,opts={}) {
   if (!valid(boss)||!valid(target)) return;
@@ -87,10 +110,13 @@ function spawnBone(boss,target,opts={}) {
   return bone;
 }
 function answer(st,p,index) {
-  if (st.phase!=="puzzle" || st.answered || !valid(p)) return;
+  if (st.phase!=="puzzle" || st.answered || !valid(p) || index<0 || index>=PUZZLES[st.index].count) return;
+  if (st.quizPlayer && st.quizPlayer.id!==p.id) return;
+  st.quizPlayer=p;
   st.answered=true;
   const q=PUZZLES[st.index];
   if (index===q.answer) {
+    st.correct++;
     msg(p,"papyrus.snowdin.correct");
     snd(st.dim,"random.levelup",p.location,0.65,1.2);
   } else {
@@ -100,8 +126,11 @@ function answer(st,p,index) {
     snd(st.dim,"mob.skeleton.hurt",p.location,0.8,0.7);
   }
   st.index++;
-  if (st.wrong>=5) { startFight(st,p); return; }
-  system.runTimeout(() => { if (valid(st.boss)&&st.phase==="puzzle") showPuzzle(st); },30);
+  if (st.index>=PUZZLES.length) {
+    system.runTimeout(()=>{if(valid(st.boss)&&st.phase==="puzzle")finishQuiz(st);},20);
+    return;
+  }
+  system.runTimeout(()=>{if(valid(st.boss)&&st.phase==="puzzle")showPuzzle(st);},20);
 }
 function startFight(st,p) {
   clearPuzzle(st);
@@ -228,39 +257,30 @@ function tickFight(st,t) {
 }
 function initBoss(boss) {
   if(!valid(boss)||boss.typeId!==PAPYRUS||states.has(boss.id))return;
-  const st={id:boss.id,boss,dim:boss.dimension,phase:"puzzle",index:0,wrong:0,answered:false,blocks:[],buttons:new Map(),target:null,nextAttack:0};
+  const st={id:boss.id,boss,dim:boss.dimension,phase:"puzzle",index:0,wrong:0,correct:0,answered:false,blocks:[],buttons:new Map(),target:null,quizPlayer:null,deadline:0,nextAttack:0};
   states.set(boss.id,st);
   say(st,"papyrus.snowdin.greeting");
   system.runTimeout(()=>{if(valid(boss)&&st.phase==="puzzle")showPuzzle(st);},30);
 }
 world.afterEvents.entitySpawn.subscribe(ev=>{if(safe(()=>ev.entity.typeId)===PAPYRUS)initBoss(ev.entity);});
-const lastPuzzleInteractions = new Map();
-function onPuzzleInteract(player,block){
-  if(!player||!block)return;
-  const l=safe(()=>block.location);
-  if(!l)return;
-  const key=Math.floor(l.x)+","+Math.floor(l.y)+","+Math.floor(l.z);
-  const lock=player.id+"|"+key;
-  const tick=system.currentTick;
-  if(lastPuzzleInteractions.get(lock)===tick)return;
-  lastPuzzleInteractions.set(lock,tick);
-  system.run(()=>{
-    if(!valid(player))return;
-    for(const st of states.values()){
-      if(st.phase!=="puzzle"||player.dimension.id!==st.dim.id)continue;
-      if(st.buttons.has(key)){answer(st,player,st.buttons.get(key));return;}
+// Chat answers: only intercept numeric answers from players near an active Papyrus.
+if (world.beforeEvents?.chatSend) {
+  world.beforeEvents.chatSend.subscribe(ev => {
+    const p=ev.sender;
+    const textValue=String(ev.message||"").trim();
+    if (!/^[1-4]$/.test(textValue)) return;
+    for (const st of states.values()) {
+      if (st.phase!=="puzzle" || p.dimension.id!==st.dim.id) continue;
+      if (st.quizPlayer && st.quizPlayer.id!==p.id) continue;
+      if (Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)>28) continue;
+      ev.cancel=true;
+      const pick=Number(textValue)-1;
+      system.run(()=>{if(valid(p)&&st.phase==="puzzle"&&!st.answered)answer(st,p,pick);});
+      return;
     }
   });
 }
-// The before-event catches empty-hand taps in both Survival and Creative.
-// Defer world/gameplay changes to the next tick because before-events are read-only.
-if(world.beforeEvents?.playerInteractWithBlock){
-  world.beforeEvents.playerInteractWithBlock.subscribe(ev=>onPuzzleInteract(ev.player,ev.block));
-}
-// Fallback for clients/API builds that report item-on-block interactions separately.
-if(world.afterEvents?.itemUseOn){
-  world.afterEvents.itemUseOn.subscribe(ev=>onPuzzleInteract(ev.source,ev.block));
-}
+
 if(world.afterEvents.projectileHitEntity)world.afterEvents.projectileHitEntity.subscribe(ev=>{
   const b=safe(()=>ev.projectile), id=safe(()=>b.id);
   if(!id||!blueProjectiles.has(id))return;
@@ -291,5 +311,16 @@ world.afterEvents.entityDie.subscribe(ev=>{
 });
 system.runInterval(()=>{
   const t=system.currentTick;
-  for(const st of states.values())if(st.phase==="fight")tickFight(st,t);
+  for(const st of states.values()) {
+    if(st.phase==="fight") { tickFight(st,t); continue; }
+    if(st.phase==="puzzle" && st.deadline && t>=st.deadline && !st.answered) {
+      st.answered=true;
+      st.wrong++;
+      st.index++;
+      const p=st.quizPlayer||st.target;
+      if(valid(p)) { msg(p,"papyrus.snowdin.timeout"); spawnBone(st.boss,p,{speed:2.2}); }
+      if(st.index>=PUZZLES.length) finishQuiz(st);
+      else showPuzzle(st);
+    }
+  }
 },5);
