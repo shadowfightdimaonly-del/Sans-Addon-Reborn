@@ -30,6 +30,9 @@
         },
         {
           "sweat": "query.variant == 6"
+        },
+        {
+          "bottle": "query.variant != 2 && query.variant != 3"
         }
       ]
     }
