@@ -10,10 +10,10 @@
         "default": "dpapyrus"
       },
       "geometry": {
-        "default": "geometry.dust_papyrus"
+        "default": "geometry.snowdin_papyrus"
       },
       "animations": {
-        "idle": "animation.dust_papyrus.idle"
+        "idle": "animation.snowdin_papyrus.idle"
       },
       "scripts": {
         "animate": [
