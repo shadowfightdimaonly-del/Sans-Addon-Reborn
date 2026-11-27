@@ -296,16 +296,16 @@ function liftAndBoneTrap(s, p) {
         ent, dim, x, y, z, born: system.currentTick, hit: new Set(), owner: s,
         life: 64, activeFrom: 2, activeTo: 58
       });
-    }, 14);
+    }, attackTicks(s, 14));
   }
   // На вершине траектории резко отправляем цель вниз.
   system.runTimeout(() => {
     if (ok(p)) safe(() => p.applyImpulse({ x: 0, y: -1.35, z: 0 }));
-  }, 23);
+  }, attackTicks(s, 23));
   // Непосредственно перед приземлением замедляем падение: эффект предотвращает урон от падения.
   system.runTimeout(() => {
     if (ok(p)) safe(() => p.addEffect("slow_falling", 35, { amplifier: 0, showParticles: false }));
-  }, 29);
+  }, attackTicks(s, 29));
 }
 
 // Обычная атака бластером: d_gb сам ищет цель с тегом pst, сам стреляет и самонаводится (так задумано).
@@ -348,7 +348,7 @@ function crossVolley(s, p, ult) {
     if (!ent) continue;
     safe(() => ent.teleport(pos, { facingLocation: tc }));
     snd(dim, "mob.endermen.portal", pos, 0.8, 0.6);
-    crossBlasters.push({ ent, dim, pos, ang, p, s, tc, ult, lockAt: t + CROSS.LOCK, fireAt: t + CROSS.FIRE, endAt: 0, state: "orbit", dir: null, hit: false });
+    crossBlasters.push({ ent, dim, pos, ang, p, s, tc, ult, lockAt: t + attackTicks(s, CROSS.LOCK), fireAt: t + attackTicks(s, CROSS.FIRE), beamTicks: attackTicks(s, CROSS.BEAM), endAt: 0, state: "orbit", dir: null, hit: false });
   }
 }
 function removeCross(ult) {
@@ -521,7 +521,7 @@ function startUlt(s, p) {
     mv: Math.random() < 0.5 ? { x: 1, z: 0 } : { x: 0, z: 1 }, step: 0, plat: [], bone: null, lastBlast: t, placed: false,
   };
   ults.push(u);
-  const ss = stateOf(s); ss.ult = true; ss.ultCount++; ss.ultAt = t + ULT.COOLDOWN;
+  const ss = stateOf(s); ss.ult = true; ss.ultCount++; ss.ultAt = t + attackTicks(s, ULT.COOLDOWN);
   safe(() => p.addEffect("levitation", ULT.LIFT_TICKS, { amplifier: 8, showParticles: true }));
   fx(dim, "minecraft:totem_particle", pl);
   snd(dim, "mob.wither.shoot", pl, 1.3, 0.8);
@@ -555,25 +555,25 @@ function tickUlts(t) {
       safe(() => u.p.teleport({ x: u.cx + 0.5 + (u.ox || 0), y: u.by + 1, z: u.cz + 0.5 + (u.oz || 0) }));
       snd(u.dim, "mob.endermen.portal", u.p.location, 0.6, 1.4);
     }
-    if (age % ULT.MOVE_EVERY === 0) {
+    if (age % attackTicks(u.s, ULT.MOVE_EVERY) === 0) {
       u.step++;
       const off = PLAT_MOVE[u.step % PLAT_MOVE.length];
       platSet(u, u.mv.x * off, u.mv.z * off);
     }
     // кость сверху, медленно опускается на игрока
-    if (!u.bone && age % ULT.BONE_EVERY === 0) {
+    if (!u.bone && age % attackTicks(u.s, ULT.BONE_EVERY) === 0) {
       const pl = u.p.location;
       u.bone = safe(() => u.dim.spawnEntity("playersans:flying_bone", { x: pl.x, y: pl.y + 9, z: pl.z }));
     }
     if (u.bone && ok(u.bone)) {
       const pl = u.p.location;
       const b = u.bone.location;
-      const ny = b.y - ULT.BONE_DROP;
+      const ny = b.y - attackSpeed(u.s, ULT.BONE_DROP);
       safe(() => u.bone.teleport({ x: pl.x, y: ny, z: pl.z }, { facingLocation: { x: pl.x, y: ny - 1, z: pl.z } }));
       if (ny <= pl.y + 1.2) { hurtPlayer(u.p, DMG, ok(u.s) ? u.s : undefined); safe(() => u.bone.remove()); u.bone = null; }
     } else u.bone = null;
     // крест бластеров (прицел фиксируется, без самонаведения)
-    if (t - u.lastBlast >= ULT.BLAST_EVERY) { u.lastBlast = t; crossVolley(u.s, u.p, u); }
+    if (t - u.lastBlast >= attackTicks(u.s, ULT.BLAST_EVERY)) { u.lastBlast = t; crossVolley(u.s, u.p, u); }
   }
 }
 
@@ -590,7 +590,7 @@ function dodgeBoneRing(s, p) {
     const z = center.z + Math.sin(a) * radius;
     const y = groundY(dim, x, center.y, z);
     for (let k = 0; k < 4; k++) {
-      const t = bornAt + 12 + i * 2 + k * 3;
+      const t = bornAt + attackTicks(s, 12 + i * 2 + k * 3);
       system.runTimeout(() => fx(dim, "minecraft:villager_angry", { x, y: y + 0.1, z }), Math.max(1, t - system.currentTick));
     }
     system.runTimeout(() => {
@@ -601,7 +601,7 @@ function dodgeBoneRing(s, p) {
         life: 52, activeFrom: 2, activeTo: 46
       });
       snd(dim, "dig.stone", { x, y, z }, 0.75, 1.15);
-    }, 12 + i * 2);
+    }, attackTicks(s, 12 + i * 2));
   }
 }
 
