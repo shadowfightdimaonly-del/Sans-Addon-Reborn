@@ -30,10 +30,11 @@ function giveSilverKnife(p) {
   if (item) safe(() => inv.addItem(item));
 }
 function saveAndSet(dim,pos,type,st) {
-  const b=safe(() => dim.getBlock(pos)); if (!b) return;
+  const b=safe(() => dim.getBlock(pos)); if (!b) return false;
   const old=safe(() => b.permutation);
   st.blocks.push({pos:{...pos},old});
   safe(() => b.setType(type));
+  return true;
 }
 function clearPuzzle(st) {
   for (const x of st.blocks.splice(0)) {
@@ -42,6 +43,7 @@ function clearPuzzle(st) {
     else if (b) safe(() => b.setType("minecraft:air"));
   }
   st.buttons.clear();
+  if (st.hold) st.hold.clear();
 }
 const PUZZLES = [
   {key:"papyrus.snowdin.q1", options:"papyrus.snowdin.options1", answer:1, count:3},
@@ -55,32 +57,70 @@ const PUZZLES = [
   {key:"papyrus.snowdin.q9", options:"papyrus.snowdin.options9", answer:2, count:4},
   {key:"papyrus.snowdin.q10", options:"papyrus.snowdin.options10", answer:1, count:4}
 ];
+// ---- Ответ = встать на цветную платформу 2x2 и постоять HOLD_TICKS. Никаких событий взаимодействия и чата. ----
+// Вопрос НИКОГДА не пропускается сам: следующий идёт только после ответа.
+const PAD_COLORS=[
+  {block:"minecraft:red_concrete",name:"§cКрасная"},
+  {block:"minecraft:blue_concrete",name:"§9Синяя"},
+  {block:"minecraft:yellow_concrete",name:"§eЖёлтая"},
+  {block:"minecraft:lime_concrete",name:"§aЗелёная"}
+];
+const HOLD_TICKS=25;   // сколько стоять на платформе, чтобы ответ засчитался
+const PAD_STEP=4;      // расстояние между центрами платформ
+const NEAR=28;
+const nearPlayers=(st) => world.getAllPlayers().filter(p => valid(p) && p.dimension.id===st.dim.id && Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)<NEAR);
 function showPuzzle(st) {
   clearPuzzle(st);
+  st.shown=false;
   if (st.index>=PUZZLES.length) return finishQuiz(st);
   st.answered=false;
+  const players=nearPlayers(st);
+  if (!players.length) return;   // рядом никого — просто ждём, tickPuzzle повторит попытку; вопрос не пропускается
+  const dist=(p) => Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z);
+  const anchor=(st.quizPlayer && players.find(p => p.id===st.quizPlayer.id)) || players.sort((a,b) => dist(a)-dist(b))[0];
+  if (!st.quizPlayer) st.target=anchor;
   const q=PUZZLES[st.index];
-  const players=world.getAllPlayers().filter(p=>p.dimension.id===st.dim.id && Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)<28);
-  if (!players.length) return;
-  const p=players.sort((a,b)=>Math.hypot(a.location.x-st.boss.location.x,a.location.z-st.boss.location.z)-Math.hypot(b.location.x-st.boss.location.x,b.location.z-st.boss.location.z))[0];
-  if (!st.quizPlayer) st.target=p;
-  const dx=st.boss.location.x-p.location.x, dz=st.boss.location.z-p.location.z, len=Math.hypot(dx,dz)||1;
-  const forward={x:dx/len,z:dz/len};
-  const rawSide={x:-forward.z,z:forward.x};
-  const side=Math.abs(rawSide.x)>=Math.abs(rawSide.z)?{x:Math.sign(rawSide.x)||1,z:0}:{x:0,z:Math.sign(rawSide.z)||1};
-  const y=Math.floor(p.location.y)-1;
-  const colors=["minecraft:red_concrete","minecraft:blue_concrete","minecraft:yellow_concrete","minecraft:lime_concrete"];
-  const count=q.count;
-  for(let i=0;i<count;i++){
-    const offset=(i-(count-1)/2)*1.35;
-    const pos={x:Math.floor(p.location.x+forward.x*2+side.x*offset),y,z:Math.floor(p.location.z+forward.z*2+side.z*offset)};
-    saveAndSet(st.dim,pos,colors[i],st);
-    st.buttons.set(`${pos.x},${pos.y},${pos.z}`,i);
+  const dx=st.boss.location.x-anchor.location.x, dz=st.boss.location.z-anchor.location.z;
+  const fwd=Math.abs(dx)>=Math.abs(dz)?{x:Math.sign(dx)||1,z:0}:{x:0,z:Math.sign(dz)||1};
+  const side={x:-fwd.z,z:fwd.x};
+  const y=Math.floor(anchor.location.y)-1;
+  const ax=Math.floor(anchor.location.x), az=Math.floor(anchor.location.z);
+  for (let i=0;i<q.count;i++) {
+    const o=(i-(q.count-1)/2)*PAD_STEP;
+    for (let a=0;a<2;a++) for (let b=0;b<2;b++) {
+      const pos={x:ax+fwd.x*4+side.x*o+a, y, z:az+fwd.z*4+side.z*o+b};
+      if (saveAndSet(st.dim,pos,PAD_COLORS[i].block,st)) st.buttons.set(\`\${pos.x},\${pos.y},\${pos.z}\`,i);
+    }
   }
+  const legend=PAD_COLORS.slice(0,q.count).map((c,i) => \`\${c.name} §7= §f\${i+1}\`).join("§7, ");
   for (const viewer of players) {
     msg(viewer,q.key);
     msg(viewer,q.options);
+    safe(() => viewer.sendMessage(legend));
     msg(viewer,"papyrus.snowdin.choose");
+  }
+  st.shown=true;
+}
+function tickPuzzle(st,t) {
+  if (!valid(st.boss)) { clearPuzzle(st); states.delete(st.id); return; }
+  if (st.quizPlayer && (!valid(st.quizPlayer) || st.quizPlayer.dimension.id!==st.dim.id ||
+      Math.hypot(st.quizPlayer.location.x-st.boss.location.x,st.quizPlayer.location.z-st.boss.location.z)>NEAR+12)) st.quizPlayer=null;
+  // платформ нет (никого не было рядом / блоки пропали) — ставим заново, вопрос остаётся прежним
+  if (!st.shown || st.buttons.size===0) {
+    if (t>=(st.retryAt||0)) { st.retryAt=t+20; showPuzzle(st); }
+    return;
+  }
+  if (st.answered) return;
+  for (const p of nearPlayers(st)) {
+    if (st.quizPlayer && st.quizPlayer.id!==p.id) continue;
+    const l=p.location;
+    const pick=st.buttons.get(\`\${Math.floor(l.x)},\${Math.floor(l.y-0.01)},\${Math.floor(l.z)}\`);
+    const h=st.hold.get(p.id);
+    if (pick===undefined) { if (h) st.hold.delete(p.id); continue; }
+    if (!h || h.pick!==pick) { st.hold.set(p.id,{pick,since:t}); continue; }
+    const left=HOLD_TICKS-(t-h.since);
+    if (left<=0) { st.hold.delete(p.id); answer(st,p,pick); return; }
+    safe(() => p.onScreenDisplay.setActionBar(\`\${PAD_COLORS[pick].name} §7— ответ §f\${pick+1}§7. Стой ещё §f\${(left/20).toFixed(1)}§7 с.\`));
   }
 }
 function finishQuiz(st) {
@@ -281,28 +321,11 @@ function tickFight(st,t) {
 }
 function initBoss(boss) {
   if(!valid(boss)||boss.typeId!==PAPYRUS||states.has(boss.id))return;
-  const st={id:boss.id,boss,dim:boss.dimension,phase:"puzzle",index:0,wrong:0,correct:0,answered:false,blocks:[],buttons:new Map(),target:null,quizPlayer:null,deadline:0,nextAttack:0};
+  const st={id:boss.id,boss,dim:boss.dimension,phase:"puzzle",index:0,wrong:0,correct:0,answered:false,blocks:[],buttons:new Map(),hold:new Map(),shown:false,retryAt:system.currentTick+30,target:null,quizPlayer:null,deadline:0,nextAttack:0};
   states.set(boss.id,st);
   say(st,"papyrus.snowdin.greeting");
-  system.runTimeout(()=>{if(valid(boss)&&st.phase==="puzzle")showPuzzle(st);},30);
 }
 world.afterEvents.entitySpawn.subscribe(ev=>{if(safe(()=>ev.entity.typeId)===PAPYRUS)initBoss(ev.entity);});
-// Answers are selected by interacting with one of the colored blocks.
-world.afterEvents.playerInteractWithBlock.subscribe(ev => {
-  const p=ev.player, block=ev.block;
-  if(!valid(p)||!block) return;
-  const pos=block.location, key=`${pos.x},${pos.y},${pos.z}`;
-  for(const st of states.values()){
-    if(st.phase!=="puzzle"||p.dimension.id!==st.dim.id||st.answered) continue;
-    const pick=st.buttons.get(key);
-    if(pick===undefined) continue;
-    if(st.quizPlayer&&st.quizPlayer.id!==p.id) return;
-    if(Math.hypot(p.location.x-st.boss.location.x,p.location.z-st.boss.location.z)>28) return;
-    system.run(()=>{if(valid(p)&&st.phase==="puzzle"&&!st.answered)answer(st,p,pick);});
-    return;
-  }
-});
-
 if(world.afterEvents.projectileHitEntity)world.afterEvents.projectileHitEntity.subscribe(ev=>{
   const b=safe(()=>ev.projectile), id=safe(()=>b.id);
   if(!id||!blueProjectiles.has(id))return;
@@ -335,7 +358,8 @@ world.afterEvents.entityDie.subscribe(ev=>{
 });
 system.runInterval(()=>{
   const t=system.currentTick;
-  for(const st of states.values()) {
-    if(st.phase==="fight") { tickFight(st,t); continue; }
+  for(const st of [...states.values()]) {
+    if(st.phase==="puzzle") tickPuzzle(st,t);
+    else if(st.phase==="fight") tickFight(st,t);
   }
 },5);
