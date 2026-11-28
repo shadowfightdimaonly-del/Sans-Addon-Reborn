@@ -342,7 +342,7 @@ world.afterEvents.entityHurt.subscribe(ev=>{
   if(!attacker||attacker.typeId!=="minecraft:player")return;
   const held=safe(()=>attacker.getComponent("minecraft:equippable").getEquipment("Mainhand"));
   if(!held)return;
-  const amount=held.typeId==="sansmode:red_knife"?9999:held.typeId==="sansmode:silver_knife"?60:0;
+  const amount=held.typeId==="sansmode:red_knife"?999999999:held.typeId==="sansmode:silver_knife"?60:0;
   if(!amount)return;
   const hp=safe(()=>target.getComponent("minecraft:health"));
   if(!hp)return;
