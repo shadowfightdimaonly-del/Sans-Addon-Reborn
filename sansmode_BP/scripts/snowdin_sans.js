@@ -232,6 +232,28 @@ function engage(s, p) {
   giveKit(p);
 }
 
+// Глобальный урон Красного ножа: применяется к любой сущности, если удар действительно прошёл.
+const RED_KNIFE_DAMAGE = 999999999;
+if (world.afterEvents.entityHurt) {
+  world.afterEvents.entityHurt.subscribe((ev) => {
+    const attacker = safe(() => ev.damageSource.damagingEntity);
+    if (!attacker || safe(() => attacker.typeId) !== "minecraft:player") return;
+    const held = safe(() => attacker.getComponent("minecraft:equippable").getEquipment("Mainhand"));
+    if (!held || held.typeId !== "sansmode:red_knife") return;
+    const target = ev.hurtEntity;
+    if (!target || safe(() => target.typeId) === "minecraft:player") return;
+    const health = safe(() => target.getComponent("minecraft:health"));
+    if (!health) return;
+    const current = Number(safe(() => health.currentValue));
+    if (!Number.isFinite(current) || current <= 0) return;
+    const dealt = Math.max(0, Number(ev.damage) || 0);
+    const extra = Math.max(0, RED_KNIFE_DAMAGE - dealt);
+    if (extra <= 0) return;
+    safe(() => health.setCurrentValue(Math.max(0, current - extra)));
+    if (current <= extra) safe(() => target.kill());
+  });
+}
+
 // иссушение на 2 сек от снарядов Санса (кость, бластер) — вдобавок к урону
 const WITHER_SOURCES = new Set([BONE_DAMAGE_ENTITY, "sansmode:snowdin_blast", "sansmode:snowdin_gb"]);
 if (world.afterEvents.entityHurt) {
